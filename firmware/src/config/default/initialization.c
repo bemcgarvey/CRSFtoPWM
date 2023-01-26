@@ -133,9 +133,21 @@ void SYS_Initialize ( void* data )
 
 
 
+    TCC1_PWMInitialize();
+
+    SERCOM3_USART_Initialize();
+
     NVMCTRL_Initialize( );
 
+    TCC2_PWMInitialize();
+
+    SERCOM1_USART_Initialize();
+
     EVSYS_Initialize();
+
+    TCC0_CompareInitialize();
+
+    SERCOM0_USART_Initialize();
 
 
 

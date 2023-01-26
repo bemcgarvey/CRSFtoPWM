@@ -1,18 +1,22 @@
 /*******************************************************************************
-  NVIC PLIB Implementation
+  SERCOM Universal Synchronous/Asynchrnous Receiver/Transmitter PLIB
 
-  Company:
+  Company
     Microchip Technology Inc.
 
-  File Name:
-    plib_nvic.c
+  File Name
+    plib_sercom3_usart.h
 
-  Summary:
-    NVIC PLIB Source File
+  Summary
+    USART peripheral library interface.
 
-  Description:
-    None
+  Description
+    This file defines the interface to the USART peripheral library. This
+    library provides access to and control of the associated peripheral
+    instance.
 
+  Remarks:
+    None.
 *******************************************************************************/
 
 /*******************************************************************************
@@ -38,64 +42,59 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
-#include "device.h"
-#include "plib_nvic.h"
-
+#ifndef PLIB_SERCOM3_USART_H // Guards against multiple inclusion
+#define PLIB_SERCOM3_USART_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: NVIC Implementation
+// Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
 
-void NVIC_Initialize( void )
-{
+#include "plib_sercom_usart_common.h"
 
-    /* Enable NVIC Controller */
-    __DMB();
-    __enable_irq();
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus // Provide C++ Compatibility
 
-    /* Enable the interrupt sources and configure the priorities as configured
-     * from within the "Interrupt Manager" of MHC. */
-    NVIC_SetPriority(SERCOM0_IRQn, 3);
-    NVIC_EnableIRQ(SERCOM0_IRQn);
-    NVIC_SetPriority(SERCOM1_IRQn, 3);
-    NVIC_EnableIRQ(SERCOM1_IRQn);
-    NVIC_SetPriority(SERCOM3_IRQn, 3);
-    NVIC_EnableIRQ(SERCOM3_IRQn);
+    extern "C" {
+
+#endif
+// DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface Routines
+// *****************************************************************************
+// *****************************************************************************
+
+void SERCOM3_USART_Initialize( void );
+
+bool SERCOM3_USART_SerialSetup( USART_SERIAL_SETUP * serialSetup, uint32_t clkFrequency );
+
+void SERCOM3_USART_TransmitterEnable( void );
+
+void SERCOM3_USART_TransmitterDisable( void );
+
+bool SERCOM3_USART_Write( void *buffer, const size_t size );
 
 
+bool SERCOM3_USART_WriteIsBusy( void );
 
-}
+size_t SERCOM3_USART_WriteCountGet( void );
 
-void NVIC_INT_Enable( void )
-{
-    __DMB();
-    __enable_irq();
-}
+void SERCOM3_USART_WriteCallbackRegister( SERCOM_USART_CALLBACK callback, uintptr_t context );
 
-bool NVIC_INT_Disable( void )
-{
-    bool processorStatus;
 
-    processorStatus = (bool) (__get_PRIMASK() == 0);
+USART_ERROR SERCOM3_USART_ErrorGet( void );
 
-    __disable_irq();
-    __DMB();
+uint32_t SERCOM3_USART_FrequencyGet( void );
 
-    return processorStatus;
-}
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
 
-void NVIC_INT_Restore( bool state )
-{
-    if( state == true )
-    {
-        __DMB();
-        __enable_irq();
     }
-    else
-    {
-        __disable_irq();
-        __DMB();
-    }
-}
+
+#endif
+// DOM-IGNORE-END
+
+#endif //PLIB_SERCOM3_USART_H
