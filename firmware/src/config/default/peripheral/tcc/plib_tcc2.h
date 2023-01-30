@@ -1,23 +1,26 @@
 /*******************************************************************************
-  Data Type definition of Timer/Counter(TCC) PLIB
+  Timer/Counter(TCC2) PLIB
 
-  Company:
+  Company
     Microchip Technology Inc.
 
-  File Name:
+  File Name
     plib_tcc2.h
 
-  Summary:
-    Data Type definition of the TCC Peripheral Interface Plib.
+  Summary
+    TCC2 PLIB Header File.
 
-  Description:
-    This file defines the Data Types for the TCC Plib.
+  Description
+    This file defines the interface to the TCC peripheral library. This
+    library provides access to and control of the associated peripheral
+    instance.
 
   Remarks:
     None.
 
 *******************************************************************************/
 
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
 * Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
@@ -40,15 +43,24 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
 
-#ifndef PLIB_TCC2_H
+#ifndef PLIB_TCC2_H       // Guards against multiple inclusion
 #define PLIB_TCC2_H
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+/* This section lists the other files that are included in this file.
+*/
 
 #include "device.h"
 #include "plib_tcc_common.h"
 
 // DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
+#ifdef __cplusplus // Provide C Compatibility
 
     extern "C" {
 
@@ -60,7 +72,7 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-/*  The following data type definitions are used by the functions in this
+/* The following data type definitions are used by the functions in this
     interface and should be considered part it.
 */
 
@@ -84,27 +96,13 @@ typedef enum
     TCC2_CHANNEL1,
 }TCC2_CHANNEL_NUM;
 
-// *****************************************************************************
 
-/* TCC Channel interrupt status
-
-   Summary:
-    Identifies TCC PWM interrupt status flags
-
-   Description:
-    This enumeration identifies TCC PWM interrupt status falgs
-
-   Remarks:
-    None.
-*/
 typedef enum
 {
-    TCC2_PWM_STATUS_OVF = TCC_INTFLAG_OVF_Msk,
-    TCC2_PWM_STATUS_FAULT_0 = TCC_INTFLAG_FAULT0_Msk,
-    TCC2_PWM_STATUS_FAULT_1 = TCC_INTFLAG_FAULT1_Msk,
-    TCC2_PWM_STATUS_MC_0 = TCC_INTFLAG_MC0_Msk,
-    TCC2_PWM_STATUS_MC_1 = TCC_INTFLAG_MC1_Msk,
-}TCC2_PWM_STATUS;
+    TCC2_COMPARE_STATUS_OVF = TCC_INTFLAG_OVF_Msk,
+    TCC2_COMPARE_STATUS_MC_0 = TCC_INTFLAG_MC0_Msk,
+    TCC2_COMPARE_STATUS_MC_1 = TCC_INTFLAG_MC1_Msk,
+}TCC2_COMPARE_STATUS;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -115,44 +113,37 @@ typedef enum
    this interface.
 */
 
-// *****************************************************************************
-void TCC2_PWMInitialize(void);
 
-void TCC2_PWMStart(void);
+void TCC2_CompareInitialize( void );
 
-void TCC2_PWMStop(void);
+void TCC2_CompareStart( void );
+
+void TCC2_CompareStop( void );
+
+uint32_t TCC2_CompareFrequencyGet( void );
+
+bool TCC2_Compare16bitPeriodSet( uint16_t period );
+
+uint16_t TCC2_Compare16bitPeriodGet( void );
+
+uint16_t TCC2_Compare16bitCounterGet( void );
+
+void TCC2_Compare16bitCounterSet( uint16_t count );
+
+bool TCC2_Compare16bitMatchSet( TCC2_CHANNEL_NUM channel, uint16_t compareValue );
 
 
-void TCC2_PWMForceUpdate(void);
 
+uint32_t TCC2_CompareStatusGet( void );
 
-void TCC2_PWMPeriodInterruptEnable(void);
+void TCC2_CompareCommandSet(TCC_COMMAND command);
 
-void TCC2_PWMPeriodInterruptDisable(void);
-
-uint32_t TCC2_PWMInterruptStatusGet(void);
-
-bool TCC2_PWM16bitPeriodSet(uint16_t period);
-
-uint16_t TCC2_PWM16bitPeriodGet(void);
-
-void TCC2_PWM16bitCounterSet(uint16_t count);
-
-__STATIC_INLINE bool TCC2_PWM16bitDutySet(TCC2_CHANNEL_NUM channel, uint16_t duty)
-{
-    bool status = false;
-    if ((TCC2_REGS->TCC_STATUS & (1UL << (TCC_STATUS_CCBV0_Pos + (uint32_t)channel))) == 0U)
-    {    
-        TCC2_REGS->TCC_CCB[channel] = duty;
-        status = true;
-    }
-    return status;
-}
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
     }
+
 #endif
 // DOM-IGNORE-END
 

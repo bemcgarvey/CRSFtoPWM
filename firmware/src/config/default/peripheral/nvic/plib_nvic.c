@@ -61,6 +61,8 @@ void NVIC_Initialize( void )
     NVIC_EnableIRQ(SERCOM0_IRQn);
     NVIC_SetPriority(SERCOM1_IRQn, 3);
     NVIC_EnableIRQ(SERCOM1_IRQn);
+    NVIC_SetPriority(SERCOM2_IRQn, 3);
+    NVIC_EnableIRQ(SERCOM2_IRQn);
     NVIC_SetPriority(SERCOM3_IRQn, 3);
     NVIC_EnableIRQ(SERCOM3_IRQn);
 
@@ -76,9 +78,7 @@ void NVIC_INT_Enable( void )
 
 bool NVIC_INT_Disable( void )
 {
-    bool processorStatus;
-
-    processorStatus = (bool) (__get_PRIMASK() == 0);
+    bool processorStatus = (__get_PRIMASK() == 0U);
 
     __disable_irq();
     __DMB();

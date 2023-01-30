@@ -1,5 +1,5 @@
 /*******************************************************************************
-  TCC Peripheral Library Interface Source File
+  Timer/Counter(TCC1) PLIB
 
   Company
     Microchip Technology Inc.
@@ -8,12 +8,15 @@
     plib_tcc1.c
 
   Summary
-    TCC1 peripheral library source file.
+    TCC1 PLIB Implementation File.
 
   Description
-    This file implements the interface to the TCC peripheral library.  This
+    This file defines the interface to the TCC peripheral library. This
     library provides access to and control of the associated peripheral
     instance.
+
+  Remarks:
+    None.
 
 *******************************************************************************/
 
@@ -42,147 +45,174 @@
 *******************************************************************************/
 // DOM-IGNORE-END
 
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
-/*  This section lists the other files that are included in this file.
+/* This section lists the other files that are included in this file.
 */
+
 #include "interrupts.h"
 #include "plib_tcc1.h"
 
 
 
-/* Initialize TCC module */
-void TCC1_PWMInitialize(void)
+
+
+
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Global Data
+// *****************************************************************************
+// *****************************************************************************
+
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: TCC1 Implementation
+// *****************************************************************************
+// *****************************************************************************
+
+/* Initialize TCC module in Compare Mode */
+void TCC1_CompareInitialize( void )
 {
     /* Reset TCC */
     TCC1_REGS->TCC_CTRLA = TCC_CTRLA_SWRST_Msk;
-    while ((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_SWRST_Msk) != 0U)
-    {
-        /* Wait for sync */
-    }
-    /* Clock prescaler */
-    TCC1_REGS->TCC_CTRLA = TCC_CTRLA_PRESCALER_DIV1 ;
 
+    while((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_SWRST_Msk) == TCC_SYNCBUSY_SWRST_Msk)
+    {
+        /* Wait for Write Synchronization */
+    }
+
+    /* Configure counter mode & prescaler */
+    TCC1_REGS->TCC_CTRLA = TCC_CTRLA_PRESCALER_DIV1 | TCC_CTRLA_PRESCSYNC_PRESC ;
+    /* Configure waveform generation mode */
     TCC1_REGS->TCC_WAVE = TCC_WAVE_WAVEGEN_NPWM;
 
-    /* Configure duty cycle values */
-    TCC1_REGS->TCC_CC[0] = 0U;
-    TCC1_REGS->TCC_CC[1] = 0U;
-    TCC1_REGS->TCC_PER = 2399U;
 
 
+    
+    TCC1_REGS->TCC_PER = 20000U;
+    
+    TCC1_REGS->TCC_CC[0] = 1500U;
+    TCC1_REGS->TCC_CC[1] = 1500U;
 
-    while (TCC1_REGS->TCC_SYNCBUSY != 0U)
+    /* Clear all interrupt flags */
+    TCC1_REGS->TCC_INTFLAG = TCC_INTFLAG_Msk;
+
+
+    while((TCC1_REGS->TCC_SYNCBUSY) != 0U)
     {
-        /* Wait for sync */
+        /* Wait for Write Synchronization */
     }
 }
 
-
-/* Start the PWM generation */
-void TCC1_PWMStart(void)
+/* Enable the counter */
+void TCC1_CompareStart( void )
 {
     TCC1_REGS->TCC_CTRLA |= TCC_CTRLA_ENABLE_Msk;
-    while ((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) != 0U)
+    while((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
     {
-        /* Wait for sync */
+        /* Wait for Write Synchronization */
     }
 }
 
-/* Stop the PWM generation */
-void TCC1_PWMStop (void)
+/* Disable the counter */
+void TCC1_CompareStop( void )
 {
     TCC1_REGS->TCC_CTRLA &= ~TCC_CTRLA_ENABLE_Msk;
-    while ((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) != 0U)
+    while((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
     {
-        /* Wait for sync */
+        /* Wait for Write Synchronization */
     }
 }
 
-/* Configure PWM period */
-bool TCC1_PWM24bitPeriodSet (uint32_t period)
+uint32_t TCC1_CompareFrequencyGet( void )
+{
+    return (uint32_t)1000000;
+}
+
+void TCC1_CompareCommandSet(TCC_COMMAND command)
+{
+    TCC1_REGS->TCC_CTRLBSET = (uint8_t)((uint32_t)command << TCC_CTRLBSET_CMD_Pos);
+    while((TCC1_REGS->TCC_SYNCBUSY) != 0U)
+    {
+        /* Wait for Write Synchronization */
+    }    
+}
+
+/* Get the current counter value */
+uint32_t TCC1_Compare24bitCounterGet( void )
+{
+    /* Write command to force COUNT register read synchronization */
+    TCC1_REGS->TCC_CTRLBSET |= (uint8_t)TCC_CTRLBSET_CMD_READSYNC;
+
+    while((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_CTRLB_Msk) == TCC_SYNCBUSY_CTRLB_Msk)
+    {
+        /* Wait for Write Synchronization */
+    }
+
+    while((TCC1_REGS->TCC_CTRLBSET & TCC_CTRLBSET_CMD_Msk) != 0U)
+    {
+        /* Wait for CMD to become zero */
+    }
+
+    /* Read current count value */
+    return TCC1_REGS->TCC_COUNT;
+}
+
+/* Configure counter value */
+void TCC1_Compare24bitCounterSet( uint32_t count )
+{
+    TCC1_REGS->TCC_COUNT = count;
+
+    while((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_COUNT_Msk) == TCC_SYNCBUSY_COUNT_Msk)
+    {
+        /* Wait for Write Synchronization */
+    }
+}
+
+/* Configure period value */
+bool TCC1_Compare24bitPeriodSet( uint32_t period )
 {
     bool status = false;
-    if ((TCC1_REGS->TCC_STATUS & (TCC_STATUS_PERBV_Msk)) == 0U)
+    if((TCC1_REGS->TCC_STATUS & TCC_STATUS_PERBV_Msk) == 0U)
     {
+        /* Configure period value */
         TCC1_REGS->TCC_PERB = period & 0xFFFFFFU;
         status = true;
-    }    
+    }
+    return status;
+}
+
+/* Read period value */
+uint32_t TCC1_Compare24bitPeriodGet( void )
+{
+    /* Get period value */
+    return TCC1_REGS->TCC_PER;
+}
+
+/* Configure duty cycle value */
+bool TCC1_Compare24bitMatchSet(TCC1_CHANNEL_NUM channel, uint32_t compareValue )
+{
+    bool status = false;
+    if ((TCC1_REGS->TCC_STATUS & (1UL << (TCC_STATUS_CCBV0_Pos + (uint32_t)channel))) == 0U)
+    {
+        /* Set new compare value for compare channel */
+        TCC1_REGS->TCC_CCB[channel] = compareValue & 0xFFFFFFU;
+        status = true;
+    }
     return status;
 }
 
 
-/* Read TCC period */
-uint32_t TCC1_PWM24bitPeriodGet (void)
+
+uint32_t TCC1_CompareStatusGet( void )
 {
-    while ((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_PER_Msk) != 0U)
-    {
-        /* Wait for sync */
-    }
-    return (TCC1_REGS->TCC_PER & 0xFFFFFFU);
+    uint32_t compare_status;
+    compare_status = ((TCC1_REGS->TCC_INTFLAG));
+    TCC1_REGS->TCC_INTFLAG = compare_status;
+    return compare_status;
 }
-
-
-bool TCC1_PWMPatternSet(uint8_t pattern_enable, uint8_t pattern_output)
-{
-    bool status = false;
-    if ((TCC1_REGS->TCC_STATUS & (TCC_STATUS_PATTBV_Msk)) == 0U)
-    {
-        TCC1_REGS->TCC_PATTB = (uint16_t)(pattern_enable | ((uint32_t)pattern_output << 8U));
-        status = true;
-    }   
-    return status; 
-}
-
-
-/* Set the counter*/
-void TCC1_PWM24bitCounterSet (uint32_t count)
-{
-    TCC1_REGS->TCC_COUNT = count & 0xFFFFFFU;
-    while ((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_COUNT_Msk) != 0U)
-    {
-        /* Wait for sync */
-    }
-}
-
-/* Enable forced synchronous update */
-void TCC1_PWMForceUpdate(void)
-{
-    TCC1_REGS->TCC_CTRLBSET |= (uint8_t)TCC_CTRLBCLR_CMD_UPDATE;
-    while ((TCC1_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_CTRLB_Msk) != 0U)
-    {
-        /* Wait for sync */
-    }
-}
-
-/* Enable the period interrupt - overflow or underflow interrupt */
-void TCC1_PWMPeriodInterruptEnable(void)
-{
-    TCC1_REGS->TCC_INTENSET = TCC_INTENSET_OVF_Msk;
-}
-
-/* Disable the period interrupt - overflow or underflow interrupt */
-void TCC1_PWMPeriodInterruptDisable(void)
-{
-    TCC1_REGS->TCC_INTENCLR = TCC_INTENCLR_OVF_Msk;
-}
-
-/* Read interrupt flags */
-uint32_t TCC1_PWMInterruptStatusGet(void)
-{
-    uint32_t interrupt_status;
-    interrupt_status = TCC1_REGS->TCC_INTFLAG;
-    /* Clear interrupt flags */
-    TCC1_REGS->TCC_INTFLAG = interrupt_status;
-    return interrupt_status;
-}
-
-
-/**
- End of File
-*/

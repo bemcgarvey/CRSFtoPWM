@@ -208,6 +208,48 @@ children:
       - type: Dynamic
         attributes: {id: tcc0, value: 'false'}
   - type: Boolean
+    attributes: {id: GENERATOR_TCC1_MC_0_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc1, value: 'false'}
+  - type: Boolean
+    attributes: {id: GENERATOR_TCC1_MC_1_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc1, value: 'false'}
+  - type: Boolean
+    attributes: {id: GENERATOR_TCC1_OVF_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc1, value: 'false'}
+  - type: Boolean
+    attributes: {id: GENERATOR_TCC2_MC_0_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc2, value: 'false'}
+  - type: Boolean
+    attributes: {id: GENERATOR_TCC2_MC_1_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc2, value: 'false'}
+  - type: Boolean
+    attributes: {id: GENERATOR_TCC2_OVF_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc2, value: 'false'}
+  - type: Boolean
     attributes: {id: USER_TCC0_EV_0_READY}
     children:
     - type: Values
@@ -221,5 +263,33 @@ children:
       children:
       - type: Dynamic
         attributes: {id: tcc0, value: 'false'}
+  - type: Boolean
+    attributes: {id: USER_TCC1_EV_0_READY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc1, value: 'false'}
+  - type: Boolean
+    attributes: {id: USER_TCC1_EV_1_READY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc1, value: 'false'}
+  - type: Boolean
+    attributes: {id: USER_TCC2_EV_0_READY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc2, value: 'false'}
+  - type: Boolean
+    attributes: {id: USER_TCC2_EV_1_READY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tcc2, value: 'false'}
 - type: ElementPosition
   attributes: {x: '180', y: '20', id: evsys}
