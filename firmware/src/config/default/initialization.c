@@ -137,18 +137,20 @@ void SYS_Initialize ( void* data )
 
     SERCOM3_I2C_Initialize();
 
-    TCC1_CompareInitialize();
-
     NVMCTRL_Initialize( );
 
     SERCOM2_USART_Initialize();
-
-    TCC2_CompareInitialize();
 
     SERCOM1_USART_Initialize();
 
 
     SERCOM0_USART_Initialize();
+
+    TC5_CompareInitialize();
+
+    TCC1_CompareInitialize();
+
+    TCC2_CompareInitialize();
 
     TCC0_CompareInitialize();
 
