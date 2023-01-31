@@ -839,7 +839,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: ADC_AIN1}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_4_MODE}
     children:
@@ -853,7 +853,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: B}
+        attributes: {value: ''}
   - type: String
     attributes: {id: PIN_5_FUNCTION_TYPE}
     children:
@@ -1147,7 +1147,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0x1'}
+        attributes: {id: core, value: '0x0'}
   - type: String
     attributes: {id: PORT_GROUP_0_PINCFG4}
     children:
@@ -1322,7 +1322,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0x11'}
+        attributes: {id: core, value: '0x1'}
   - type: String
     attributes: {id: PORT_GROUP_0_PMUX11}
     children:
