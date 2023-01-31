@@ -3246,7 +3246,7 @@
     (property "Value" "TSW-104-08-G-T-RA" (id 1) (at 234.95 45.2144 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Footprint" "SamacSys Parts:HDRRA12W64P254_3X4_1016X254X810P" (id 2) (at 242.57 46.355 0)
+    (property "Footprint" "SamacSys_Parts:HDRRA12W64P254_3X4_1016X254X810P" (id 2) (at 242.57 46.355 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Datasheet" "http://suddendocs.samtec.com/catalog_english/tsw_th.pdf" (id 3) (at 242.57 48.895 0)
@@ -3542,7 +3542,7 @@
     (property "Value" "TSW-104-08-G-T-RA" (id 1) (at 234.95 73.1544 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Footprint" "SamacSys Parts:HDRRA12W64P254_3X4_1016X254X810P" (id 2) (at 242.57 74.295 0)
+    (property "Footprint" "SamacSys_Parts:HDRRA12W64P254_3X4_1016X254X810P" (id 2) (at 242.57 74.295 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Datasheet" "http://suddendocs.samtec.com/catalog_english/tsw_th.pdf" (id 3) (at 242.57 76.835 0)
@@ -3669,7 +3669,7 @@
     (uuid fc625155-88c3-48a5-9c0e-032f9cbc65db)
     (property "Reference" "U1" (id 0) (at 59.69 125.6243 0))
     (property "Value" "AP2210N-3.3TRG1" (id 1) (at 59.69 128.3994 0))
-    (property "Footprint" "SamacSys Parts:SOT95P280X145-3N" (id 2) (at 49.53 137.16 0)
+    (property "Footprint" "SamacSys_Parts:SOT95P280X145-3N" (id 2) (at 49.53 137.16 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Datasheet" "" (id 3) (at 49.53 134.62 0)
@@ -3912,10 +3912,10 @@
       (reference "J7") (unit 1) (value "SBus") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
     )
     (path "/ac11a4ab-e224-47ec-9e1c-78820c399ce4"
-      (reference "J8") (unit 1) (value "TSW-104-08-G-T-RA") (footprint "SamacSys Parts:HDRRA12W64P254_3X4_1016X254X810P")
+      (reference "J8") (unit 1) (value "TSW-104-08-G-T-RA") (footprint "SamacSys_Parts:HDRRA12W64P254_3X4_1016X254X810P")
     )
     (path "/dd3bb852-f13c-4c62-9d02-ca2b65859266"
-      (reference "J9") (unit 1) (value "TSW-104-08-G-T-RA") (footprint "SamacSys Parts:HDRRA12W64P254_3X4_1016X254X810P")
+      (reference "J9") (unit 1) (value "TSW-104-08-G-T-RA") (footprint "SamacSys_Parts:HDRRA12W64P254_3X4_1016X254X810P")
     )
     (path "/7459503b-d174-4f7c-8819-82edcacdb623"
       (reference "J10") (unit 1) (value "CH9") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
@@ -3945,7 +3945,7 @@
       (reference "R6") (unit 1) (value "1K") (footprint "Resistor_SMD:R_0603_1608Metric")
     )
     (path "/fc625155-88c3-48a5-9c0e-032f9cbc65db"
-      (reference "U1") (unit 1) (value "AP2210N-3.3TRG1") (footprint "SamacSys Parts:SOT95P280X145-3N")
+      (reference "U1") (unit 1) (value "AP2210N-3.3TRG1") (footprint "SamacSys_Parts:SOT95P280X145-3N")
     )
   )
 )
