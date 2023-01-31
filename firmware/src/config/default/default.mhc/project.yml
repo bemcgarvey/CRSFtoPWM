@@ -62,13 +62,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CDBE0E5D94C53410F5F34B566B5FF51F
-- generatedChecksum: FE28E02A8FDB1F1C01AD4422CAC71AC0
+- generatedChecksum: 29F28DA9E64F2C590D4DABF1FE2FD871
   logicalPath: config/default/peripheral/port
   name: plib_port.c
   physicalPath: peripheral/port
   security: NON_SECURE
   type: SOURCE
-  userChecksum: FE28E02A8FDB1F1C01AD4422CAC71AC0
+  userChecksum: 29F28DA9E64F2C590D4DABF1FE2FD871
 - generatedChecksum: EBBCB274C60080E9CFBC07BC2F2604C0
   logicalPath: config/default/peripheral/sercom/usart
   name: plib_sercom0_usart.c
@@ -468,13 +468,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: EF2F1BB1D2A75B3EEF721CF17362EFA1
-- generatedChecksum: 8A41A9F82B35051A5DD6C0115A9024BB
+- generatedChecksum: 6132FE71BE04C09DA61EC37A8344315B
   logicalPath: config/default/peripheral/port
   name: plib_port.h
   physicalPath: peripheral/port
   security: NON_SECURE
   type: HEADER
-  userChecksum: 8A41A9F82B35051A5DD6C0115A9024BB
+  userChecksum: 6132FE71BE04C09DA61EC37A8344315B
 - generatedChecksum: 01B06D56328D9917F8AC09457152F344
   logicalPath: config/default/peripheral/sercom/usart
   name: plib_sercom0_usart.h
@@ -797,13 +797,13 @@ files:
   security: NON_SECURE
   type: LINKER
   userChecksum: E99F0EBEE53A0CD6A820440B412C7DD2
-- generatedChecksum: E39979A6E21FCFBFED3AB016328362E8
+- generatedChecksum: 1B8C9A4AD896C2CDFCFF916FF06AA99C
   logicalPath: ''
   name: pin_configurations.csv
   physicalPath: ''
   security: NON_SECURE
   type: IMPORTANT
-  userChecksum: E39979A6E21FCFBFED3AB016328362E8
+  userChecksum: 1B8C9A4AD896C2CDFCFF916FF06AA99C
 format_version: v1.0
 libraries: []
 settings:
