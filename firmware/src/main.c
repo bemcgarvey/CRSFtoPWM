@@ -36,11 +36,17 @@
 
 int main ( void )
 {
+    int count = 0;
     /* Initialize all modules */
     SYS_Initialize ( NULL );
 
     while ( true )
     {
+        ++count;
+        if (count == 1000000) {
+            count = 0;
+            LED_Toggle();
+        }
         /* Maintain state machines of all polled MPLAB Harmony modules. */
         SYS_Tasks ( );
     }
