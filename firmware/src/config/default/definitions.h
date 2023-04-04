@@ -62,6 +62,9 @@
 #include "peripheral/tcc/plib_tcc1.h"
 #include "peripheral/tcc/plib_tcc2.h"
 #include "peripheral/tcc/plib_tcc0.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "osal/osal.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

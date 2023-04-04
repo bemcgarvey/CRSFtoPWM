@@ -4,6 +4,13 @@ attributes: {id: FreeRTOS}
 children:
 - type: Symbols
   children:
+  - type: Integer
+    attributes: {id: FREERTOS_CPU_CLOCK_HZ}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: FreeRTOS, value: '48000000'}
   - type: Boolean
     attributes: {id: FREERTOS_DAEMON_TASK_STARTUP_HOOK}
     children:
@@ -12,11 +19,11 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: FreeRTOS, value: 'true'}
+        attributes: {id: FreeRTOS, value: 'false'}
   - type: Integer
     attributes: {id: FREERTOS_TIMER_QUEUE_LENGTH}
     children:
@@ -25,11 +32,11 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: FreeRTOS, value: '10'}
+        attributes: {id: FreeRTOS, value: '0'}
   - type: Integer
     attributes: {id: FREERTOS_TIMER_TASK_PRIORITY}
     children:
@@ -38,11 +45,11 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: FreeRTOS, value: '3'}
+        attributes: {id: FreeRTOS, value: '0'}
   - type: Integer
     attributes: {id: FREERTOS_TIMER_TASK_STACK_DEPTH}
     children:
@@ -51,17 +58,17 @@ children:
       - type: Boolean
         attributes: {id: visible}
         children:
-        - {type: Value, value: 'true'}
+        - {type: Value, value: 'false'}
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: FreeRTOS, value: '256'}
+        attributes: {id: FreeRTOS, value: '0'}
   - type: Boolean
     attributes: {id: FREERTOS_USE_TIMERS}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: 'true'}
+        attributes: {value: 'false'}
 - type: ElementPosition
-  attributes: {x: '163', y: '131', id: FreeRTOS}
+  attributes: {x: '155', y: '183', id: FreeRTOS}

@@ -26,6 +26,7 @@
 #include <stdbool.h>                    // Defines true
 #include <stdlib.h>                     // Defines EXIT_FAILURE
 #include "definitions.h"                // SYS function prototypes
+#include "tasks.h"
 #include "ms5637.h"
 
 
@@ -37,23 +38,14 @@
 
 int main ( void )
 {
-    int count = 0;
-    int tick = 0;
     /* Initialize all modules */
     SYS_Initialize ( NULL );
     printf("Starting\r\n");
-    ms5637Init();
+    //ms5637Init();
+    initTasks();
     while ( true )
     {
-        ++count;
-        if (count == 1000000) {
-            count = 0;
-            ++tick;
-            //printf("Tick = %d\r\n", tick);
-            LED_Toggle();
-        }
-        /* Maintain state machines of all polled MPLAB Harmony modules. */
-        SYS_Tasks ( );
+        
     }
 
     /* Execution should not come here during normal operation */
