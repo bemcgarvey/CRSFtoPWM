@@ -183,6 +183,9 @@
       <itemPath>../src/rtosHandles.h</itemPath>
       <itemPath>../src/statusTask.h</itemPath>
       <itemPath>../src/tasks.h</itemPath>
+      <itemPath>../src/packetTask.h</itemPath>
+      <itemPath>../src/sensorTask.h</itemPath>
+      <itemPath>../src/sensors.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -272,6 +275,9 @@
       <itemPath>../src/ms5637.c</itemPath>
       <itemPath>../src/statusTask.c</itemPath>
       <itemPath>../src/tasks.c</itemPath>
+      <itemPath>../src/packetTask.c</itemPath>
+      <itemPath>../src/sensorTask.c</itemPath>
+      <itemPath>../src/sensors.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

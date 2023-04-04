@@ -13,6 +13,8 @@ extern "C" {
 #endif
 
 extern TaskHandle_t statusTaskHandle;
+extern TaskHandle_t sensorTaskHandle;
+extern TaskHandle_t packetTaskHandle;
 
 
 #ifdef	__cplusplus
