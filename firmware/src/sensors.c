@@ -1,13 +1,20 @@
 #include "definitions.h"
 #include "sensors.h"
 #include "ms5637.h"
+#include "debug.h"
+#include <math.h>
 
 void initSensors(void) {
     ms5637Init();
 }
 
 float getAltitude(void) {
-    return 0;
+    int p = getPressure();
+    float alt;
+    alt = p / 101325.0;
+    alt = pow(alt, (1.0 / 5.255));
+    alt = 44330 * (1 - alt);
+    return alt;
 }
 
 #define ADC_COUNT_TO_VOLT   ((3.3 / 4095) * 7.8)

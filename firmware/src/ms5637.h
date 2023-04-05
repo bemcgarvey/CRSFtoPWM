@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
     void ms5637Init(void);
-    float getPressure(void);
+    int32_t getPressure(void);
 
 #ifdef	__cplusplus
 }

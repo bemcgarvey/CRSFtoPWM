@@ -6,8 +6,6 @@
 
 TaskHandle_t sensorTaskHandle;
 
-char msg[30];
-
 void sensorTask(void *pvParameter) {
     vTaskDelay(100);
     initSensors();
@@ -21,13 +19,14 @@ void sensorTask(void *pvParameter) {
     }
     while (1) {
         vTaskDelay(delay);
-        getAltitude();
+        float alt = getAltitude();
+        //Altitude in m
+        (void)alt;
         //TODO send it
         vTaskDelay(delay);
         float v = getVBat();
+        //Voltage in V
         (void)v;
-        //sprintf(msg, "%.1f V", v);
-        //debugMsg(msg);
         //TODO send it
     }
 }
