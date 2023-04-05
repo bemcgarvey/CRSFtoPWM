@@ -12,6 +12,10 @@
             <itemPath>../src/config/default/osal/osal_freertos.h</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f9" displayName="adc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/adc/plib_adc_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/adc/plib_adc.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="f4" displayName="clock" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clock/plib_clock.h</itemPath>
             </logicalFolder>
@@ -207,6 +211,9 @@
             <itemPath>../src/config/default/osal/osal_freertos.c</itemPath>
           </logicalFolder>
           <logicalFolder name="f1" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="f9" displayName="adc" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/adc/plib_adc.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="f4" displayName="clock" projectFiles="true">
               <itemPath>../src/config/default/peripheral/clock/plib_clock.c</itemPath>
             </logicalFolder>
@@ -287,6 +294,7 @@
                    displayName="Important Files"
                    projectFiles="false">
       <logicalFolder name="f1" displayName="default.mhc" projectFiles="true">
+        <itemPath>../src/config/default/default.mhc/adc.yml</itemPath>
         <itemPath>../src/config/default/default.mhc/cmsis.yml</itemPath>
         <itemPath>../src/config/default/default.mhc/core.yml</itemPath>
         <itemPath>../src/config/default/default.mhc/dfp.yml</itemPath>

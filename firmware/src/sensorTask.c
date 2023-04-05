@@ -6,6 +6,8 @@
 
 TaskHandle_t sensorTaskHandle;
 
+char msg[30];
+
 void sensorTask(void *pvParameter) {
     vTaskDelay(100);
     initSensors();
@@ -22,7 +24,10 @@ void sensorTask(void *pvParameter) {
         getAltitude();
         //TODO send it
         vTaskDelay(delay);
-        getVBat();
+        float v = getVBat();
+        (void)v;
+        //sprintf(msg, "%.1f V", v);
+        //debugMsg(msg);
         //TODO send it
     }
 }

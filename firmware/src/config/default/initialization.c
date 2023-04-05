@@ -169,6 +169,7 @@ void SYS_Initialize ( void* data )
 
     SERCOM0_USART_Initialize();
 
+    ADC_Initialize();
     TC5_CompareInitialize();
 
     TCC1_CompareInitialize();

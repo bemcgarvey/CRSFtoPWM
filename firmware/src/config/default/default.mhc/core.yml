@@ -4,13 +4,20 @@ attributes: {id: core}
 children:
 - type: Symbols
   children:
+  - type: Boolean
+    attributes: {id: ADC_CLOCK_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: adc, value: 'true'}
   - type: Integer
     attributes: {id: ADC_CLOCK_FREQUENCY}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0'}
+        attributes: {id: core, value: '48000000'}
   - type: KeyValueSet
     attributes: {id: COMPILER_CHOICE}
     children:
@@ -392,14 +399,14 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
   - type: Integer
     attributes: {id: GCLK_ID_30_FREQ}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0'}
+        attributes: {id: core, value: '48000000'}
   - type: Boolean
     attributes: {id: GCLK_INST_NUM3}
     children:

@@ -41,13 +41,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 31CEE4650E24C72160696DF93B55B48D
-- generatedChecksum: E0AADD334DB25489B1E03356BA4BB7E3
+- generatedChecksum: 868D477F34893048BD5683DD160CA6FC
   logicalPath: config/default
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: E0AADD334DB25489B1E03356BA4BB7E3
+  userChecksum: 868D477F34893048BD5683DD160CA6FC
 - generatedChecksum: 9E6BEFF94E895CB355FE83E04DE9D28F
   logicalPath: config/default
   name: interrupts.c
@@ -83,13 +83,20 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 8FDD6248506F28B32C4F5FD9AA0D9C6F
-- generatedChecksum: 391169F2F6D95386A3A661CFAFF6D1F1
+- generatedChecksum: B8BC9F076A3ABE2B20981EF2F7CA9CDE
+  logicalPath: config/default/peripheral/adc
+  name: plib_adc.c
+  physicalPath: peripheral/adc
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: B8BC9F076A3ABE2B20981EF2F7CA9CDE
+- generatedChecksum: 1CED938A1AFAD15FCC6731B389538AB0
   logicalPath: config/default/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 391169F2F6D95386A3A661CFAFF6D1F1
+  userChecksum: 1CED938A1AFAD15FCC6731B389538AB0
 - generatedChecksum: C3ECDED3D6301DB0DE622293ED615D21
   logicalPath: config/default/peripheral/evsys
   name: plib_evsys.c
@@ -342,13 +349,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: CB8D4E72D581CDEFB0BB729ADC52D698
-- generatedChecksum: 09BEDA19A48CF9B100B160649D26D182
+- generatedChecksum: 15BFE766B93DB0B31650329FAC924E09
   logicalPath: config/default
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 09BEDA19A48CF9B100B160649D26D182
+  userChecksum: 15BFE766B93DB0B31650329FAC924E09
 - generatedChecksum: ACB7AD12FD525895ABA47C26F4F9A683
   logicalPath: FreeRTOS/Source/include
   name: deprecated_definitions.h
@@ -565,7 +572,7 @@ files:
   physicalPath: osal
   security: NON_SECURE
   type: HEADER
-  userChecksum: 17D9E94C060B8CF11367C92D0A8F0624
+  userChecksum: F0AD88762263B7CB89B02AB4F5876059
 - generatedChecksum: 167A43EFF8A31441EBF85AC77958A30B
   logicalPath: config/default/osal
   name: osal_definitions.h
@@ -608,6 +615,20 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: FDB1FF71A7FA08756D72F611F9A3B4DB
+- generatedChecksum: E1EBCFB84A88D86D910775A333EB0D50
+  logicalPath: config/default/peripheral/adc
+  name: plib_adc.h
+  physicalPath: peripheral/adc
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: E1EBCFB84A88D86D910775A333EB0D50
+- generatedChecksum: 3149AE6FD33DF743F00C21A281E5D7A9
+  logicalPath: config/default/peripheral/adc
+  name: plib_adc_common.h
+  physicalPath: peripheral/adc
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 3149AE6FD33DF743F00C21A281E5D7A9
 - generatedChecksum: D9883C70E96468DEE4D7B4669D1C837B
   logicalPath: config/default/peripheral/clock
   name: plib_clock.h

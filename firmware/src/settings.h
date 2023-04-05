@@ -21,6 +21,7 @@ extern "C" {
         uint8_t sensorRate;
         uint8_t failsafeMode;
         uint8_t uartMode;
+        //TODO add battery calibration value?
     } Settings;
 
     extern Settings settings;
