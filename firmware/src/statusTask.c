@@ -1,15 +1,18 @@
 #include "definitions.h"
 #include "statusTask.h"
+#include "rtosHandles.h"
 #include <stdio.h>
 
 TaskHandle_t statusTaskHandle;
 
 void statusTask(void *pvParameters) {
-    int count = 0;
+    char msg[DEBUG_MAX_MSG_LEN];
     while (1) {
-        ++count;
-        printf("Count = %d\r\n", count);
         LED_Toggle();
-        vTaskDelay(1000);
+        if (xQueueReceive(debugQueue, msg, 1000) == pdTRUE) {
+            msg[DEBUG_MAX_MSG_LEN - 1] = '\0';
+            printf(msg);
+            printf("\r\n");
+        }
     }
 }

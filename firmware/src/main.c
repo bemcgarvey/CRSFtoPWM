@@ -3,6 +3,7 @@
 #include <stdlib.h>                     // Defines EXIT_FAILURE
 #include "definitions.h"                // SYS function prototypes
 #include "tasks.h"
+#include "settings.h"
 
 //TODO file headers
 
@@ -11,6 +12,8 @@ int main ( void )
     /* Initialize all modules */
     SYS_Initialize ( NULL );
     printf("Starting\r\n");
+    loadSettings();
+    printf("Settings loaded\r\n");
     initTasks();  //Starts scheduler, does not return
     while ( true )
     {

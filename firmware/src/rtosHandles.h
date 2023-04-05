@@ -16,6 +16,8 @@ extern TaskHandle_t statusTaskHandle;
 extern TaskHandle_t sensorTaskHandle;
 extern TaskHandle_t packetTaskHandle;
 
+#define DEBUG_MAX_MSG_LEN   30
+extern QueueHandle_t debugQueue;
 
 #ifdef	__cplusplus
 }
