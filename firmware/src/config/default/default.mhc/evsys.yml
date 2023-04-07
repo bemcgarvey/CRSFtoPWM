@@ -173,6 +173,13 @@ children:
       - type: Dynamic
         attributes: {id: evsys, value: 'false'}
   - type: Boolean
+    attributes: {id: GENERATOR_DMAC_CH_0_ACTIVE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
+  - type: Boolean
     attributes: {id: GENERATOR_TCC0_MC_0_ACTIVE}
     children:
     - type: Values
@@ -249,6 +256,13 @@ children:
       children:
       - type: Dynamic
         attributes: {id: tcc2, value: 'false'}
+  - type: Boolean
+    attributes: {id: USER_DMAC_CH_0_READY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 'false'}
   - type: Boolean
     attributes: {id: USER_TCC0_EV_0_READY}
     children:

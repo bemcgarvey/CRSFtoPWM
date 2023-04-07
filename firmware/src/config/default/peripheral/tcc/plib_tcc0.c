@@ -97,10 +97,10 @@ void TCC0_CompareInitialize( void )
     
     TCC0_REGS->TCC_PER = 60000U;
     
-    TCC0_REGS->TCC_CC[0] = 4500U;
-    TCC0_REGS->TCC_CC[1] = 4500U;
-    TCC0_REGS->TCC_CC[2] = 4500U;
-    TCC0_REGS->TCC_CC[3] = 4500U;
+    TCC0_REGS->TCC_CC[0] = 0U;
+    TCC0_REGS->TCC_CC[1] = 0U;
+    TCC0_REGS->TCC_CC[2] = 0U;
+    TCC0_REGS->TCC_CC[3] = 0U;
 
     /* Clear all interrupt flags */
     TCC0_REGS->TCC_INTFLAG = TCC_INTFLAG_Msk;

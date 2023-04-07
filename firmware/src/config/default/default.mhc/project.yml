@@ -41,13 +41,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 31CEE4650E24C72160696DF93B55B48D
-- generatedChecksum: FF4A9F3068A387DAA8A851BDDB0B2720
+- generatedChecksum: 5949AA8F06312389B4D5F6F101E26D6C
   logicalPath: config/default
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: FF4A9F3068A387DAA8A851BDDB0B2720
+  userChecksum: 5949AA8F06312389B4D5F6F101E26D6C
 - generatedChecksum: 6C7B2BBAE67AA5CBC5B802CA3FC8B632
   logicalPath: config/default
   name: interrupts.c
@@ -97,6 +97,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: AFCEA89EEA04A6CEDAB09D2BF338F63F
+- generatedChecksum: 494BB6DB80EA12F9E2EEF9405149EC4E
+  logicalPath: config/default/peripheral/dmac
+  name: plib_dmac.c
+  physicalPath: peripheral/dmac
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: 494BB6DB80EA12F9E2EEF9405149EC4E
 - generatedChecksum: C3ECDED3D6301DB0DE622293ED615D21
   logicalPath: config/default/peripheral/evsys
   name: plib_evsys.c
@@ -160,34 +167,34 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: F94EC504D51E924022456E228F8845BF
-- generatedChecksum: 4C6F2D0E278960FBFAC13FCEBFD93B04
+- generatedChecksum: 1548EDAA150AD26DD592F0C8071AF77D
   logicalPath: config/default/peripheral/tc
   name: plib_tc4.c
   physicalPath: peripheral/tc
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 4C6F2D0E278960FBFAC13FCEBFD93B04
-- generatedChecksum: 68959AC3F6352D0881E0C44EB1D80BC8
+  userChecksum: 1548EDAA150AD26DD592F0C8071AF77D
+- generatedChecksum: 27AD8FA6EAB1736868C28DA66448CC6C
   logicalPath: config/default/peripheral/tcc
   name: plib_tcc0.c
   physicalPath: peripheral/tcc
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 68959AC3F6352D0881E0C44EB1D80BC8
-- generatedChecksum: 1341BC2DD0B0A2F73F7721DB6189CF48
+  userChecksum: 27AD8FA6EAB1736868C28DA66448CC6C
+- generatedChecksum: 38F0D77593E55CA3CB6765519F4902D0
   logicalPath: config/default/peripheral/tcc
   name: plib_tcc1.c
   physicalPath: peripheral/tcc
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 1341BC2DD0B0A2F73F7721DB6189CF48
-- generatedChecksum: BCC7B7C99CDCAC1E923483FDBBC41E41
+  userChecksum: 38F0D77593E55CA3CB6765519F4902D0
+- generatedChecksum: 0ECA19AE77C0451BB8A9A94DB8D709A9
   logicalPath: config/default/peripheral/tcc
   name: plib_tcc2.c
   physicalPath: peripheral/tcc
   security: NON_SECURE
   type: SOURCE
-  userChecksum: BCC7B7C99CDCAC1E923483FDBBC41E41
+  userChecksum: 0ECA19AE77C0451BB8A9A94DB8D709A9
 - generatedChecksum: 741A50663F6D5D6DFA0403DBF34EDF53
   logicalPath: FreeRTOS/Source/portable/GCC/ARM_CM0
   name: port.c
@@ -356,13 +363,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: CB8D4E72D581CDEFB0BB729ADC52D698
-- generatedChecksum: E1FD1FC8FA785832DBD283F5B6D1F7E0
+- generatedChecksum: 3531A027EB79FFDB6FD3FDD10D3ECC6C
   logicalPath: config/default
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: E1FD1FC8FA785832DBD283F5B6D1F7E0
+  userChecksum: 3531A027EB79FFDB6FD3FDD10D3ECC6C
 - generatedChecksum: ACB7AD12FD525895ABA47C26F4F9A683
   logicalPath: FreeRTOS/Source/include
   name: deprecated_definitions.h
@@ -643,6 +650,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: D9883C70E96468DEE4D7B4669D1C837B
+- generatedChecksum: 6EFC293D1147594E5283AE45E1B86C79
+  logicalPath: config/default/peripheral/dmac
+  name: plib_dmac.h
+  physicalPath: peripheral/dmac
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 6EFC293D1147594E5283AE45E1B86C79
 - generatedChecksum: CCAEF942C66AF995876DFD85CEFF611F
   logicalPath: config/default/peripheral/evsys
   name: plib_evsys.h

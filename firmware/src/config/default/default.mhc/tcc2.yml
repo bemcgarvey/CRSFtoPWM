@@ -126,14 +126,14 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4500'}
+        attributes: {value: '0'}
   - type: Long
     attributes: {id: TCC_COMPARE_CC1}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4500'}
+        attributes: {value: '0'}
   - type: KeyValueSet
     attributes: {id: TCC_COMPARE_CTRLBSET_DIR}
     children:

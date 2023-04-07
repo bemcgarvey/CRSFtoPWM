@@ -34,7 +34,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4800'}
+        attributes: {value: '0'}
   - type: Long
     attributes: {id: TC_COMPARE_CC1}
     children:
@@ -47,7 +47,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4800'}
+        attributes: {value: '0'}
   - type: KeyValueSet
     attributes: {id: TC_COMPARE_CTRLA_WAVEGEN}
     children:

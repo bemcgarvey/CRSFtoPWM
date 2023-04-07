@@ -12,7 +12,12 @@
 extern "C" {
 #endif
 
-void rxTask(void *pvParameters);
+#define NUM_CHANNELS    16
+
+    extern uint16_t channels[NUM_CHANNELS];
+    extern unsigned int packetCount;
+    
+    void rxTask(void *pvParameters);
 
 #ifdef	__cplusplus
 }

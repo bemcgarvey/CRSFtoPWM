@@ -8,19 +8,6 @@ static uint8_t _lut[256];
 void initCRC(uint8_t poly);
 void T3Callback(TC_TIMER_STATUS status, uintptr_t context);
 
-/*
- *       RC     PWM
- * min  172 ->  988us
- * mid  992 -> 1500us
- * max 1811 -> 2012us
- */
-#define CRSF_MAX    1811
-#define CRSF_MIN    172
-#define CRSF_MID    992
-#define SERVO_COUNT_PER_US  3
-#define SERVO_LOW   988.0
-#define SERVO_HIGH  2012.0
-
 void initCRSF(void) {
     initCRC(0xd5);
     TC3_TimerCallbackRegister(T3Callback, (uintptr_t) NULL);
@@ -28,13 +15,6 @@ void initCRSF(void) {
     synched = false;
     TC3_TimerStart();
     SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);
-}
-
-uint16_t rcToServo(uint16_t rcIn) {
-    float out;
-    out = (rcIn - CRSF_MIN) * ((SERVO_HIGH - SERVO_LOW) / (CRSF_MAX - CRSF_MIN));
-    out += SERVO_LOW;
-    return out * SERVO_COUNT_PER_US;
 }
 
 void T3Callback(TC_TIMER_STATUS status, uintptr_t context) {

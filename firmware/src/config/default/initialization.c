@@ -169,6 +169,8 @@ void SYS_Initialize ( void* data )
 
     SERCOM0_USART_Initialize();
 
+    DMAC_Initialize();
+
     ADC_Initialize();
     TC3_TimerInitialize();
 

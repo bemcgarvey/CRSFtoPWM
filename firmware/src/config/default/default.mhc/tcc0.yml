@@ -126,28 +126,28 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4500'}
+        attributes: {value: '0'}
   - type: Long
     attributes: {id: TCC_COMPARE_CC1}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4500'}
+        attributes: {value: '0'}
   - type: Long
     attributes: {id: TCC_COMPARE_CC2}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4500'}
+        attributes: {value: '0'}
   - type: Long
     attributes: {id: TCC_COMPARE_CC3}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '4500'}
+        attributes: {value: '0'}
   - type: KeyValueSet
     attributes: {id: TCC_COMPARE_CTRLBSET_DIR}
     children:
@@ -335,4 +335,4 @@ children:
         children:
         - {type: Value, value: '5592.406'}
 - type: ElementPosition
-  attributes: {x: '8', y: '142', id: tcc0}
+  attributes: {x: '7', y: '142', id: tcc0}

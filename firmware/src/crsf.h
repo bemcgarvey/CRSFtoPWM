@@ -78,23 +78,38 @@ extern "C" {
         unsigned ch13 : 11;
         unsigned ch14 : 11;
         unsigned ch15 : 11;
-    } CRSF_ChannelData;
+    }
+    CRSF_ChannelData;
+
+    typedef struct {
+        uint8_t uplink_RSSI_1;
+        uint8_t uplink_RSSI_2;
+        uint8_t uplink_Link_quality;
+        int8_t uplink_SNR;
+        uint8_t active_antenna;
+        uint8_t rf_Mode;
+        uint8_t uplink_TX_Power;
+        uint8_t downlink_RSSI;
+        uint8_t downlink_Link_quality;
+        int8_t downlink_SNR;
+    } CRSF_LinkStatistics;
 
     typedef struct __attribute((packed)) {
         unsigned voltage : 16; // mv * 100 BigEndian
         unsigned current : 16; // ma * 100
         unsigned capacity : 24; // mah
         unsigned remaining : 8; // %
-    } CRSF_sensor_battery;
+    }
+    CRSF_sensor_battery;
 
     typedef struct __attribute((packed)) {
         uint16_t altitude; // Altitude in decimeters + 10000dm, or Altitude in meters if high bit is set, BigEndian
         int16_t verticalspd; // Vertical speed in cm/s, BigEndian
-    } CRSF_sensor_baro_vario;
+    }
+    CRSF_sensor_baro_vario;
 
     void initCRSF(void);
     uint8_t calcCRC(uint8_t *data, uint8_t len);
-    uint16_t rcToServo(uint16_t rcIn);
     void sendBatteryTelem(float voltage);
     void sendAltitudeTelem(float altitude, float vSpeed);
 
