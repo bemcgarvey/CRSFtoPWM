@@ -1,17 +1,17 @@
 /*******************************************************************************
-  Timer/Counter(TCC2) PLIB
+  Timer/Counter(TC3) PLIB
 
   Company
     Microchip Technology Inc.
 
   File Name
-    plib_tcc2.c
+    plib_tc3.c
 
   Summary
-    TCC2 PLIB Implementation File.
+    TC3 PLIB Implementation File.
 
   Description
-    This file defines the interface to the TCC peripheral library. This
+    This file defines the interface to the TC peripheral library. This
     library provides access to and control of the associated peripheral
     instance.
 
@@ -53,13 +53,8 @@
 /* This section lists the other files that are included in this file.
 */
 
+#include "plib_tc3.h"
 #include "interrupts.h"
-#include "plib_tcc2.h"
-
-
-
-
-
 
 
 // *****************************************************************************
@@ -68,153 +63,149 @@
 // *****************************************************************************
 // *****************************************************************************
 
+static TC_TIMER_CALLBACK_OBJ TC3_CallbackObject;
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: TCC2 Implementation
+// Section: TC3 Implementation
 // *****************************************************************************
 // *****************************************************************************
 
-/* Initialize TCC module in Compare Mode */
-void TCC2_CompareInitialize( void )
+// *****************************************************************************
+/* Initialize the TC module in Timer mode */
+void TC3_TimerInitialize( void )
 {
-    /* Reset TCC */
-    TCC2_REGS->TCC_CTRLA = TCC_CTRLA_SWRST_Msk;
+    /* Reset TC */
+    TC3_REGS->COUNT16.TC_CTRLA = TC_CTRLA_SWRST_Msk;
 
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_SWRST_Msk) == TCC_SYNCBUSY_SWRST_Msk)
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 
     /* Configure counter mode & prescaler */
-    TCC2_REGS->TCC_CTRLA = TCC_CTRLA_PRESCALER_DIV1 | TCC_CTRLA_PRESCSYNC_PRESC ;
-    /* Configure waveform generation mode */
-    TCC2_REGS->TCC_WAVE = TCC_WAVE_WAVEGEN_NPWM;
+    TC3_REGS->COUNT16.TC_CTRLA = TC_CTRLA_MODE_COUNT16 | TC_CTRLA_PRESCALER_DIV8 | TC_CTRLA_WAVEGEN_MPWM ;
 
-
-
-    
-    TCC2_REGS->TCC_PER = 60000U;
-    
-    TCC2_REGS->TCC_CC[0] = 4500U;
-    TCC2_REGS->TCC_CC[1] = 4500U;
+    /* Configure timer period */
+    TC3_REGS->COUNT16.TC_CC[0U] = 187U;
 
     /* Clear all interrupt flags */
-    TCC2_REGS->TCC_INTFLAG = TCC_INTFLAG_Msk;
+    TC3_REGS->COUNT16.TC_INTFLAG = TC_INTFLAG_Msk;
+
+    TC3_CallbackObject.callback = NULL;
+    /* Enable interrupt*/
+    TC3_REGS->COUNT16.TC_INTENSET = TC_INTENSET_OVF_Msk;
 
 
-    while((TCC2_REGS->TCC_SYNCBUSY) != 0U)
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
-/* Enable the counter */
-void TCC2_CompareStart( void )
+/* Enable the TC counter */
+void TC3_TimerStart( void )
 {
-    TCC2_REGS->TCC_CTRLA |= TCC_CTRLA_ENABLE_Msk;
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
+    TC3_REGS->COUNT16.TC_CTRLA |= TC_CTRLA_ENABLE_Msk;
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
-/* Disable the counter */
-void TCC2_CompareStop( void )
+/* Disable the TC counter */
+void TC3_TimerStop( void )
 {
-    TCC2_REGS->TCC_CTRLA &= ~TCC_CTRLA_ENABLE_Msk;
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
+    TC3_REGS->COUNT16.TC_CTRLA = ((TC3_REGS->COUNT16.TC_CTRLA) &(uint16_t)(~TC_CTRLA_ENABLE_Msk));
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
-uint32_t TCC2_CompareFrequencyGet( void )
+uint32_t TC3_TimerFrequencyGet( void )
 {
-    return (uint32_t)3000000;
+    return (uint32_t)(375000UL);
 }
 
-void TCC2_CompareCommandSet(TCC_COMMAND command)
+void TC3_TimerCommandSet(TC_COMMAND command)
 {
-    TCC2_REGS->TCC_CTRLBSET = (uint8_t)((uint32_t)command << TCC_CTRLBSET_CMD_Pos);
-    while((TCC2_REGS->TCC_SYNCBUSY) != 0U)
+    TC3_REGS->COUNT16.TC_CTRLBSET = (uint8_t)command << TC_CTRLBSET_CMD_Pos;
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
-    }    
+    }
 }
 
-/* Get the current counter value */
-uint16_t TCC2_Compare16bitCounterGet( void )
+/* Get the current timer counter value */
+uint16_t TC3_Timer16bitCounterGet( void )
 {
     /* Write command to force COUNT register read synchronization */
-    TCC2_REGS->TCC_CTRLBSET |= (uint8_t)TCC_CTRLBSET_CMD_READSYNC;
+    TC3_REGS->COUNT16.TC_READREQ = TC_READREQ_RREQ_Msk | (uint16_t)TC_COUNT16_COUNT_REG_OFST;
 
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_CTRLB_Msk) == TCC_SYNCBUSY_CTRLB_Msk)
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
-    }
-
-    while((TCC2_REGS->TCC_CTRLBSET & TCC_CTRLBSET_CMD_Msk) != 0U)
-    {
-        /* Wait for CMD to become zero */
     }
 
     /* Read current count value */
-    return (uint16_t)TCC2_REGS->TCC_COUNT;
+    return (uint16_t)TC3_REGS->COUNT16.TC_COUNT;
 }
 
-/* Configure counter value */
-void TCC2_Compare16bitCounterSet( uint16_t count )
+/* Configure timer counter value */
+void TC3_Timer16bitCounterSet( uint16_t count )
 {
-    TCC2_REGS->TCC_COUNT = count;
+    TC3_REGS->COUNT16.TC_COUNT = count;
 
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_COUNT_Msk) == TCC_SYNCBUSY_COUNT_Msk)
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
-/* Configure period value */
-bool TCC2_Compare16bitPeriodSet( uint16_t period )
+/* Configure timer period */
+void TC3_Timer16bitPeriodSet( uint16_t period )
 {
-    bool status = false;
-    if((TCC2_REGS->TCC_STATUS & TCC_STATUS_PERBV_Msk) == 0U)
+    TC3_REGS->COUNT16.TC_CC[0] = period;
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
-        /* Configure period value */
-        TCC2_REGS->TCC_PERB = period;
-        status = true;
+        /* Wait for Write Synchronization */
     }
-    return status;
 }
 
-/* Read period value */
-uint16_t TCC2_Compare16bitPeriodGet( void )
+/* Read the timer period value */
+uint16_t TC3_Timer16bitPeriodGet( void )
 {
-    /* Get period value */
-    return (uint16_t)TCC2_REGS->TCC_PER;
-}
+    /* Write command to force CC register read synchronization */
+    TC3_REGS->COUNT16.TC_READREQ = TC_READREQ_RREQ_Msk | (uint16_t)TC_COUNT16_CC_REG_OFST;
 
-
-/* Configure duty cycle value */
-bool TCC2_Compare16bitMatchSet(TCC2_CHANNEL_NUM channel, uint16_t compareValue )
-{
-    bool status = false;
-    if ((TCC2_REGS->TCC_STATUS & (1UL << (TCC_STATUS_CCBV0_Pos + (uint32_t)channel))) == 0U)
+    while((TC3_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
-        /* Set new compare value for compare channel */
-        TCC2_REGS->TCC_CCB[channel] = compareValue & 0xFFFFFFU;
-        status = true;
+        /* Wait for Write Synchronization */
     }
-    return status;
+    return (uint16_t)TC3_REGS->COUNT16.TC_CC[0];
 }
 
 
 
-
-uint32_t TCC2_CompareStatusGet( void )
+/* Register callback function */
+void TC3_TimerCallbackRegister( TC_TIMER_CALLBACK callback, uintptr_t context )
 {
-    uint32_t compare_status;
-    compare_status = ((TCC2_REGS->TCC_INTFLAG));
-    TCC2_REGS->TCC_INTFLAG = compare_status;
-    return compare_status;
+    TC3_CallbackObject.callback = callback;
+
+    TC3_CallbackObject.context = context;
 }
+
+/* Timer Interrupt handler */
+void TC3_TimerInterruptHandler( void )
+{
+    TC_TIMER_STATUS status;
+    status = (TC_TIMER_STATUS) (TC3_REGS->COUNT16.TC_INTFLAG);
+    /* Clear interrupt flags */
+    TC3_REGS->COUNT16.TC_INTFLAG = TC_INTFLAG_Msk;
+    if(TC3_CallbackObject.callback != NULL)
+    {
+        TC3_CallbackObject.callback(status, TC3_CallbackObject.context);
+    }
+}
+

@@ -14,10 +14,11 @@ extern "C" {
 
 extern TaskHandle_t statusTaskHandle;
 extern TaskHandle_t sensorTaskHandle;
-extern TaskHandle_t packetTaskHandle;
+extern TaskHandle_t rxTaskHandle;
 
 #define DEBUG_MAX_MSG_LEN   30
 extern QueueHandle_t debugQueue;
+extern QueueHandle_t packetQueue;
 
 #ifdef	__cplusplus
 }

@@ -126,14 +126,14 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '1500'}
+        attributes: {value: '4500'}
   - type: Long
     attributes: {id: TCC_COMPARE_CC1}
     children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '1500'}
+        attributes: {value: '4500'}
   - type: KeyValueSet
     attributes: {id: TCC_COMPARE_CTRLBSET_DIR}
     children:
@@ -174,7 +174,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '20000'}
+        attributes: {value: '60000'}
   - type: Comment
     attributes: {id: TCC_COMPARE_PERIOD_COMMENT}
     children:
@@ -208,7 +208,7 @@ children:
       - type: String
         attributes: {id: text}
         children:
-        - {type: Value, value: '**** High side dead time is 64.0 uS ****'}
+        - {type: Value, value: '**** High side dead time is 21.3333333333 uS ****'}
   - type: Comment
     attributes: {id: TCC_DTLS_COMMENT}
     children:
@@ -217,7 +217,7 @@ children:
       - type: String
         attributes: {id: text}
         children:
-        - {type: Value, value: '**** Low side dead time is 64.0 uS ****'}
+        - {type: Value, value: '**** Low side dead time is 21.3333333333 uS ****'}
   - type: Comment
     attributes: {id: TCC_FREQUENCY}
     children:
@@ -226,14 +226,14 @@ children:
       - type: String
         attributes: {id: text}
         children:
-        - {type: Value, value: '**** PWM Frequency is 416 Hz ****'}
+        - {type: Value, value: '**** PWM Frequency is 1250 Hz ****'}
   - type: Integer
     attributes: {id: TCC_MODULE_FREQUENCY}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: tcc2, value: '1000000'}
+        attributes: {id: tcc2, value: '3000000'}
   - type: Combo
     attributes: {id: TCC_OPERATION_MODE}
     children:
@@ -297,7 +297,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: tcc2, value: '1000'}
+        attributes: {id: tcc2, value: '3000'}
   - type: File
     attributes: {id: TCC_TIMER_SOURCE}
     children:
@@ -315,6 +315,6 @@ children:
       - type: Float
         attributes: {id: max}
         children:
-        - {type: Value, value: '65.537'}
+        - {type: Value, value: '21.845667'}
 - type: ElementPosition
   attributes: {x: '6', y: '322', id: tcc2}

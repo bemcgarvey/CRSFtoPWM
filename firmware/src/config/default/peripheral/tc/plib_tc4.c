@@ -1,17 +1,17 @@
 /*******************************************************************************
-  Timer/Counter(TCC2) PLIB
+  Timer/Counter(TC4) PLIB
 
   Company
     Microchip Technology Inc.
 
   File Name
-    plib_tcc2.c
+    plib_tc4.c
 
   Summary
-    TCC2 PLIB Implementation File.
+    TC4 PLIB Implementation File.
 
   Description
-    This file defines the interface to the TCC peripheral library. This
+    This file defines the interface to the TC peripheral library. This
     library provides access to and control of the associated peripheral
     instance.
 
@@ -53,14 +53,8 @@
 /* This section lists the other files that are included in this file.
 */
 
+#include "plib_tc4.h"
 #include "interrupts.h"
-#include "plib_tcc2.h"
-
-
-
-
-
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -71,150 +65,137 @@
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: TCC2 Implementation
+// Section: TC4 Implementation
 // *****************************************************************************
 // *****************************************************************************
 
-/* Initialize TCC module in Compare Mode */
-void TCC2_CompareInitialize( void )
+/* Initialize TC module in Compare Mode */
+void TC4_CompareInitialize( void )
 {
-    /* Reset TCC */
-    TCC2_REGS->TCC_CTRLA = TCC_CTRLA_SWRST_Msk;
+    /* Reset TC */
+    TC4_REGS->COUNT16.TC_CTRLA = TC_CTRLA_SWRST_Msk;
 
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_SWRST_Msk) == TCC_SYNCBUSY_SWRST_Msk)
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 
     /* Configure counter mode & prescaler */
-    TCC2_REGS->TCC_CTRLA = TCC_CTRLA_PRESCALER_DIV1 | TCC_CTRLA_PRESCSYNC_PRESC ;
-    /* Configure waveform generation mode */
-    TCC2_REGS->TCC_WAVE = TCC_WAVE_WAVEGEN_NPWM;
+    TC4_REGS->COUNT16.TC_CTRLA = TC_CTRLA_MODE_COUNT16 | TC_CTRLA_PRESCALER_DIV1 | TC_CTRLA_WAVEGEN_NPWM ;
 
 
-
-    
-    TCC2_REGS->TCC_PER = 60000U;
-    
-    TCC2_REGS->TCC_CC[0] = 4500U;
-    TCC2_REGS->TCC_CC[1] = 4500U;
+    TC4_REGS->COUNT16.TC_CC[0] = 4800U;
+    TC4_REGS->COUNT16.TC_CC[1] = 4800U;
 
     /* Clear all interrupt flags */
-    TCC2_REGS->TCC_INTFLAG = TCC_INTFLAG_Msk;
+    TC4_REGS->COUNT16.TC_INTFLAG = TC_INTFLAG_Msk;
 
 
-    while((TCC2_REGS->TCC_SYNCBUSY) != 0U)
+
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
 /* Enable the counter */
-void TCC2_CompareStart( void )
+void TC4_CompareStart( void )
 {
-    TCC2_REGS->TCC_CTRLA |= TCC_CTRLA_ENABLE_Msk;
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
+    TC4_REGS->COUNT16.TC_CTRLA |= TC_CTRLA_ENABLE_Msk;
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
 /* Disable the counter */
-void TCC2_CompareStop( void )
+void TC4_CompareStop( void )
 {
-    TCC2_REGS->TCC_CTRLA &= ~TCC_CTRLA_ENABLE_Msk;
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_ENABLE_Msk) == TCC_SYNCBUSY_ENABLE_Msk)
+    TC4_REGS->COUNT16.TC_CTRLA = ((TC4_REGS->COUNT16.TC_CTRLA) & (uint16_t)(~TC_CTRLA_ENABLE_Msk));
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
-uint32_t TCC2_CompareFrequencyGet( void )
+uint32_t TC4_CompareFrequencyGet( void )
 {
-    return (uint32_t)3000000;
+    return (uint32_t)(3200000UL);
 }
 
-void TCC2_CompareCommandSet(TCC_COMMAND command)
+void TC4_CompareCommandSet(TC_COMMAND command)
 {
-    TCC2_REGS->TCC_CTRLBSET = (uint8_t)((uint32_t)command << TCC_CTRLBSET_CMD_Pos);
-    while((TCC2_REGS->TCC_SYNCBUSY) != 0U)
+    TC4_REGS->COUNT16.TC_CTRLBSET = (uint8_t)command << TC_CTRLBSET_CMD_Pos;
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }    
 }
 
 /* Get the current counter value */
-uint16_t TCC2_Compare16bitCounterGet( void )
+uint16_t TC4_Compare16bitCounterGet( void )
 {
     /* Write command to force COUNT register read synchronization */
-    TCC2_REGS->TCC_CTRLBSET |= (uint8_t)TCC_CTRLBSET_CMD_READSYNC;
+    TC4_REGS->COUNT16.TC_READREQ = TC_READREQ_RREQ_Msk | (uint16_t)TC_COUNT16_COUNT_REG_OFST;
 
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_CTRLB_Msk) == TCC_SYNCBUSY_CTRLB_Msk)
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
-    }
-
-    while((TCC2_REGS->TCC_CTRLBSET & TCC_CTRLBSET_CMD_Msk) != 0U)
-    {
-        /* Wait for CMD to become zero */
     }
 
     /* Read current count value */
-    return (uint16_t)TCC2_REGS->TCC_COUNT;
+    return (uint16_t)TC4_REGS->COUNT16.TC_COUNT;
 }
 
 /* Configure counter value */
-void TCC2_Compare16bitCounterSet( uint16_t count )
+void TC4_Compare16bitCounterSet( uint16_t count )
 {
-    TCC2_REGS->TCC_COUNT = count;
+    TC4_REGS->COUNT16.TC_COUNT = count;
 
-    while((TCC2_REGS->TCC_SYNCBUSY & TCC_SYNCBUSY_COUNT_Msk) == TCC_SYNCBUSY_COUNT_Msk)
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
         /* Wait for Write Synchronization */
     }
 }
 
-/* Configure period value */
-bool TCC2_Compare16bitPeriodSet( uint16_t period )
-{
-    bool status = false;
-    if((TCC2_REGS->TCC_STATUS & TCC_STATUS_PERBV_Msk) == 0U)
-    {
-        /* Configure period value */
-        TCC2_REGS->TCC_PERB = period;
-        status = true;
-    }
-    return status;
-}
-
 /* Read period value */
-uint16_t TCC2_Compare16bitPeriodGet( void )
+uint16_t TC4_Compare16bitPeriodGet( void )
 {
-    /* Get period value */
-    return (uint16_t)TCC2_REGS->TCC_PER;
+    return 0xFFFF;
 }
-
 
 /* Configure duty cycle value */
-bool TCC2_Compare16bitMatchSet(TCC2_CHANNEL_NUM channel, uint16_t compareValue )
+void TC4_Compare16bitMatch0Set( uint16_t compareValue )
 {
-    bool status = false;
-    if ((TCC2_REGS->TCC_STATUS & (1UL << (TCC_STATUS_CCBV0_Pos + (uint32_t)channel))) == 0U)
+    /* Set new compare value for compare channel 0 */
+    TC4_REGS->COUNT16.TC_CC[0] = compareValue;
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
     {
-        /* Set new compare value for compare channel */
-        TCC2_REGS->TCC_CCB[channel] = compareValue & 0xFFFFFFU;
-        status = true;
+        /* Wait for Write Synchronization */
     }
-    return status;
+}
+
+/* Configure duty cycle value */
+void TC4_Compare16bitMatch1Set( uint16_t compareValue )
+{
+    /* Set new compare value for compare channel 1 */
+    TC4_REGS->COUNT16.TC_CC[1] = compareValue;
+    while((TC4_REGS->COUNT16.TC_STATUS & TC_STATUS_SYNCBUSY_Msk)!= 0U)
+    {
+        /* Wait for Write Synchronization */
+    }
 }
 
 
 
 
-uint32_t TCC2_CompareStatusGet( void )
+
+/* Get interrupt flag status */
+TC_COMPARE_STATUS TC4_CompareStatusGet( void )
 {
-    uint32_t compare_status;
-    compare_status = ((TCC2_REGS->TCC_INTFLAG));
-    TCC2_REGS->TCC_INTFLAG = compare_status;
+    TC_COMPARE_STATUS compare_status;
+    compare_status = (TC4_REGS->COUNT16.TC_INTFLAG);
+    /* Clear timer overflow interrupt */
+    TC4_REGS->COUNT16.TC_INTFLAG = (uint8_t)compare_status;
     return compare_status;
 }

@@ -95,12 +95,12 @@ void TCC0_CompareInitialize( void )
 
 
     
-    TCC0_REGS->TCC_PER = 20000U;
+    TCC0_REGS->TCC_PER = 60000U;
     
-    TCC0_REGS->TCC_CC[0] = 1500U;
-    TCC0_REGS->TCC_CC[1] = 1500U;
-    TCC0_REGS->TCC_CC[2] = 1500U;
-    TCC0_REGS->TCC_CC[3] = 1500U;
+    TCC0_REGS->TCC_CC[0] = 4500U;
+    TCC0_REGS->TCC_CC[1] = 4500U;
+    TCC0_REGS->TCC_CC[2] = 4500U;
+    TCC0_REGS->TCC_CC[3] = 4500U;
 
     /* Clear all interrupt flags */
     TCC0_REGS->TCC_INTFLAG = TCC_INTFLAG_Msk;
@@ -134,7 +134,7 @@ void TCC0_CompareStop( void )
 
 uint32_t TCC0_CompareFrequencyGet( void )
 {
-    return (uint32_t)1000000;
+    return (uint32_t)3000000;
 }
 
 void TCC0_CompareCommandSet(TCC_COMMAND command)

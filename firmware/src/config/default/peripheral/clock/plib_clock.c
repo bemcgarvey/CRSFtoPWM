@@ -91,26 +91,26 @@ static void GCLK0_Initialize(void)
 }
 
 
-static void GCLK3_Initialize(void)
+static void GCLK2_Initialize(void)
 {
-    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(7U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(3U);
+    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(7U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(2U);
 
-    GCLK_REGS->GCLK_GENDIV = GCLK_GENDIV_DIV(48U) | GCLK_GENDIV_ID(3U);
+    GCLK_REGS->GCLK_GENDIV = GCLK_GENDIV_DIV(16U) | GCLK_GENDIV_ID(2U);
     while((GCLK_REGS->GCLK_STATUS & GCLK_STATUS_SYNCBUSY_Msk) == GCLK_STATUS_SYNCBUSY_Msk)
     {
-        /* wait for the Generator 3 synchronization */
+        /* wait for the Generator 2 synchronization */
     }
 }
 
 
-static void GCLK4_Initialize(void)
+static void GCLK3_Initialize(void)
 {
-    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(7U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(4U);
+    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(7U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(3U);
 
-    GCLK_REGS->GCLK_GENDIV = GCLK_GENDIV_DIV(15U) | GCLK_GENDIV_ID(4U);
+    GCLK_REGS->GCLK_GENDIV = GCLK_GENDIV_DIV(15U) | GCLK_GENDIV_ID(3U);
     while((GCLK_REGS->GCLK_STATUS & GCLK_STATUS_SYNCBUSY_Msk) == GCLK_STATUS_SYNCBUSY_Msk)
     {
-        /* wait for the Generator 4 synchronization */
+        /* wait for the Generator 3 synchronization */
     }
 }
 
@@ -121,8 +121,8 @@ void CLOCK_Initialize (void)
 
     DFLL_Initialize();
     GCLK0_Initialize();
+    GCLK2_Initialize();
     GCLK3_Initialize();
-    GCLK4_Initialize();
 
 
     /* Selection of the Generator and write Lock for SERCOM0_CORE */
@@ -134,16 +134,16 @@ void CLOCK_Initialize (void)
     /* Selection of the Generator and write Lock for SERCOM3_CORE */
     GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(23U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
     /* Selection of the Generator and write Lock for TCC0 TCC1 */
-    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(26U) | GCLK_CLKCTRL_GEN(0x3U)  | GCLK_CLKCTRL_CLKEN_Msk;
+    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(26U) | GCLK_CLKCTRL_GEN(0x2U)  | GCLK_CLKCTRL_CLKEN_Msk;
     /* Selection of the Generator and write Lock for TC3 TCC2 */
-    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(27U) | GCLK_CLKCTRL_GEN(0x3U)  | GCLK_CLKCTRL_CLKEN_Msk;
+    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(27U) | GCLK_CLKCTRL_GEN(0x2U)  | GCLK_CLKCTRL_CLKEN_Msk;
     /* Selection of the Generator and write Lock for TC4 TC5 */
-    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(28U) | GCLK_CLKCTRL_GEN(0x4U)  | GCLK_CLKCTRL_CLKEN_Msk;
+    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(28U) | GCLK_CLKCTRL_GEN(0x3U)  | GCLK_CLKCTRL_CLKEN_Msk;
     /* Selection of the Generator and write Lock for ADC */
     GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(30U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
 
     /* Configure the APBC Bridge Clocks */
-    PM_REGS->PM_APBCMASK = 0x1273cU;
+    PM_REGS->PM_APBCMASK = 0x11f3cU;
 
 
     /*Disable RC oscillator*/

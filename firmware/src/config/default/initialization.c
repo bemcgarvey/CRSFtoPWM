@@ -170,7 +170,9 @@ void SYS_Initialize ( void* data )
     SERCOM0_USART_Initialize();
 
     ADC_Initialize();
-    TC5_CompareInitialize();
+    TC3_TimerInitialize();
+
+    TC4_CompareInitialize();
 
     TCC1_CompareInitialize();
 
