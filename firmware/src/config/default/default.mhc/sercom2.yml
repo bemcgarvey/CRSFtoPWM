@@ -32,6 +32,15 @@ children:
       children:
       - type: Dynamic
         attributes: {id: sercom2, value: '&(SERCOM2_REGS->USART_INT.SERCOM_DATA)'}
+  - type: Comment
+    attributes: {id: SERCOM_INTERRUPT_ENABLE_COMMENT}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'true'}
   - type: KeyValueSet
     attributes: {id: SERCOM_MODE}
     children:

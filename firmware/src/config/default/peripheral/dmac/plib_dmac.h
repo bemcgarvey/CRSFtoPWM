@@ -77,6 +77,8 @@ typedef enum
 {
     /* DMAC Channel 0 */
     DMAC_CHANNEL_0 = 0,
+    /* DMAC Channel 1 */
+    DMAC_CHANNEL_1 = 1,
 } DMAC_CHANNEL;
 
 typedef enum
@@ -126,8 +128,6 @@ typedef struct
 
 typedef uint32_t DMAC_CHANNEL_CONFIG;
 
-typedef void (*DMAC_CHANNEL_CALLBACK) (DMAC_TRANSFER_EVENT event, uintptr_t contextHandle);
-void DMAC_ChannelCallbackRegister (DMAC_CHANNEL channel, const DMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle);
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines

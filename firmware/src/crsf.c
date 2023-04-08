@@ -30,40 +30,41 @@ uint8_t calcCRC(uint8_t *data, uint8_t len) {
     return crc;
 }
 
-enum {BATTERY_PACKET_LEN = 12, BATTERY_CRC_OFFSET = 11, BATTERY_PAYLOAD_LEN = 10};
+enum {
+    BATTERY_PACKET_LEN = 12, BATTERY_CRC_OFFSET = 11, BATTERY_PAYLOAD_LEN = 10
+};
 
 void sendBatteryTelem(float voltage) {
-    if (!txIsBusy()) {
-        CRSF_Frame *frame = (CRSF_Frame *) crsfTxBuffer;
-        frame->address = CRSF_ADDRESS_FLIGHT_CONTROLLER;
-        frame->length = BATTERY_PAYLOAD_LEN;
-        frame->type = CRSF_FRAMETYPE_BATTERY_SENSOR;
-        CRSF_sensor_battery *sensor = (CRSF_sensor_battery *) frame->data;
-        sensor->capacity = 0;
-        sensor->current = 0;
-        sensor->remaining = 100;
-        uint16_t v = voltage * 10;
-        sensor->voltage = (v  >> 8) | (v << 8);
-        crsfTxBuffer[BATTERY_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], BATTERY_PAYLOAD_LEN - 1);
-        writeUart(crsfTxBuffer, BATTERY_PACKET_LEN);
-    }
+    CRSF_Frame *frame = (CRSF_Frame *) crsfTxBuffer;
+    frame->address = CRSF_ADDRESS_FLIGHT_CONTROLLER;
+    frame->length = BATTERY_PAYLOAD_LEN;
+    frame->type = CRSF_FRAMETYPE_BATTERY_SENSOR;
+    CRSF_sensor_battery *sensor = (CRSF_sensor_battery *) frame->data;
+    sensor->capacity = 0;
+    sensor->current = 0;
+    sensor->remaining = 100;
+    uint16_t v = voltage * 10;
+    sensor->voltage = (v >> 8) | (v << 8);
+    crsfTxBuffer[BATTERY_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], BATTERY_PAYLOAD_LEN - 1);
+    writeUart(crsfTxBuffer, BATTERY_PACKET_LEN);
 }
 
-enum {ALT_PACKET_LEN = 8, ALT_CRC_OFFSET = 7, ALT_PAYLOAD_LEN = 6};
+enum {
+    ALT_PACKET_LEN = 8, ALT_CRC_OFFSET = 7, ALT_PAYLOAD_LEN = 6
+};
 
 //altitude in meters, vspeed in m/s
+
 void sendAltitudeTelem(float altitude, float vSpeed) {
-    if (!txIsBusy()) {
-        CRSF_Frame *frame = (CRSF_Frame *) crsfTxBuffer;
-        frame->address = CRSF_ADDRESS_FLIGHT_CONTROLLER;
-        frame->length = ALT_PAYLOAD_LEN;
-        frame->type = CRSF_FRAMETYPE_BARO_ALTITUDE;
-        CRSF_sensor_baro_vario *sensor = (CRSF_sensor_baro_vario *) frame->data;
-        uint16_t temp = altitude * 10 + 10000;
-        sensor->altitude = (temp >> 8) | (temp << 8);
-        temp = vSpeed * 100;
-        sensor->verticalspd = (temp >> 8) | (temp << 8);
-        crsfTxBuffer[ALT_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], ALT_PAYLOAD_LEN - 1);
-        writeUart(crsfTxBuffer, ALT_PACKET_LEN);
-    }
+    CRSF_Frame *frame = (CRSF_Frame *) crsfTxBuffer;
+    frame->address = CRSF_ADDRESS_FLIGHT_CONTROLLER;
+    frame->length = ALT_PAYLOAD_LEN;
+    frame->type = CRSF_FRAMETYPE_BARO_ALTITUDE;
+    CRSF_sensor_baro_vario *sensor = (CRSF_sensor_baro_vario *) frame->data;
+    uint16_t temp = altitude * 10 + 10000;
+    sensor->altitude = (temp >> 8) | (temp << 8);
+    temp = vSpeed * 100;
+    sensor->verticalspd = (temp >> 8) | (temp << 8);
+    crsfTxBuffer[ALT_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], ALT_PAYLOAD_LEN - 1);
+    writeUart(crsfTxBuffer, ALT_PACKET_LEN);
 }

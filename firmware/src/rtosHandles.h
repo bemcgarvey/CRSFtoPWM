@@ -15,6 +15,7 @@ extern "C" {
 extern TaskHandle_t statusTaskHandle;
 extern TaskHandle_t sensorTaskHandle;
 extern TaskHandle_t rxTaskHandle;
+extern TaskHandle_t sbusTaskHandle;
 
 #define DEBUG_MAX_MSG_LEN   30
 extern QueueHandle_t debugQueue;

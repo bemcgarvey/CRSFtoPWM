@@ -13,7 +13,6 @@ extern "C" {
 #endif
 
 void initUart(void);
-bool txIsBusy(void);
 void writeUart(uint8_t *buffer, int len);
 
 #ifdef	__cplusplus

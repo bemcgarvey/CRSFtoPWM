@@ -8,28 +8,20 @@ volatile static int pos = 0;
 volatile static int remaining;
 volatile static uint32_t lastByteTick = 0;
 volatile static bool synched = false;
-volatile static bool txInProgress = false;
 
-void DMA0Callback(DMAC_TRANSFER_EVENT event, uintptr_t contextHandle);
 void T3Callback(TC_TIMER_STATUS status, uintptr_t context);
 
 void initUart(void) {
     TC3_TimerCallbackRegister(T3Callback, (uintptr_t) NULL);
-    DMAC_ChannelCallbackRegister (DMAC_CHANNEL_0, DMA0Callback, (uintptr_t) NULL);
     lastByteTick = 0;
     synched = false;
     TC3_TimerStart();
     SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);
 }
 
-bool txIsBusy(void) {
-    return txInProgress;
-}
-
 void writeUart(uint8_t *buffer, int len) {
-    if (!txInProgress) {
-        txInProgress = true;
-        DMAC_ChannelTransfer (DMAC_CHANNEL_0, buffer, (void *)&(SERCOM0_REGS->USART_INT.SERCOM_DATA), len);
+    if (!DMAC_ChannelIsBusy(DMAC_CHANNEL_0)) {
+        DMAC_ChannelTransfer(DMAC_CHANNEL_0, buffer, (void *) &(SERCOM0_REGS->USART_INT.SERCOM_DATA), len);
     }
 }
 
@@ -97,10 +89,6 @@ void SERCOM0_CRSF_USART_InterruptHandler(void) {
     if (testCondition) {
         rxISR();
     }
-}
-
-void DMA0Callback(DMAC_TRANSFER_EVENT event, uintptr_t contextHandle) {
-    txInProgress = false;
 }
 
 void T3Callback(TC_TIMER_STATUS status, uintptr_t context) {
