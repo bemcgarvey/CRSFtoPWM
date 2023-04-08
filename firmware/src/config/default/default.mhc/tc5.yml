@@ -1,6 +1,6 @@
 format_version: v1.0
 type: UniqueComponent
-attributes: {id: tc4}
+attributes: {id: tc5}
 children:
 - type: Symbols
   children:
@@ -110,7 +110,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: tc4, value: '3200000'}
+        attributes: {id: tc5, value: '3200000'}
   - type: Combo
     attributes: {id: TC_OPERATION_MODE}
     children:
@@ -157,7 +157,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: tc4, value: '3200'}
+        attributes: {id: tc5, value: '3200'}
   - type: File
     attributes: {id: TC_TIMER_SOURCE}
     children:
@@ -177,4 +177,4 @@ children:
         children:
         - {type: Value, value: '20.48'}
 - type: ElementPosition
-  attributes: {x: '310', y: '316', id: tc4}
+  attributes: {x: '310', y: '319', id: tc5}

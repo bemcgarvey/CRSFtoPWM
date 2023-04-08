@@ -61,7 +61,7 @@
 #include "peripheral/dmac/plib_dmac.h"
 #include "peripheral/adc/plib_adc.h"
 #include "peripheral/tc/plib_tc3.h"
-#include "peripheral/tc/plib_tc4.h"
+#include "peripheral/tc/plib_tc5.h"
 #include "peripheral/tcc/plib_tcc1.h"
 #include "peripheral/tcc/plib_tcc2.h"
 #include "peripheral/tcc/plib_tcc0.h"

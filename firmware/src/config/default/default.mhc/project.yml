@@ -41,13 +41,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 31CEE4650E24C72160696DF93B55B48D
-- generatedChecksum: 5949AA8F06312389B4D5F6F101E26D6C
+- generatedChecksum: 99B36D4335342DB6082A61EAEB248A8F
   logicalPath: config/default
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 5949AA8F06312389B4D5F6F101E26D6C
+  userChecksum: 99B36D4335342DB6082A61EAEB248A8F
 - generatedChecksum: 6C7B2BBAE67AA5CBC5B802CA3FC8B632
   logicalPath: config/default
   name: interrupts.c
@@ -90,13 +90,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: B8BC9F076A3ABE2B20981EF2F7CA9CDE
-- generatedChecksum: AFCEA89EEA04A6CEDAB09D2BF338F63F
+- generatedChecksum: BCF49B3B6D9E937E43AED1851B934623
   logicalPath: config/default/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
-  userChecksum: AFCEA89EEA04A6CEDAB09D2BF338F63F
+  userChecksum: BCF49B3B6D9E937E43AED1851B934623
 - generatedChecksum: 494BB6DB80EA12F9E2EEF9405149EC4E
   logicalPath: config/default/peripheral/dmac
   name: plib_dmac.c
@@ -167,13 +167,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: F94EC504D51E924022456E228F8845BF
-- generatedChecksum: 1548EDAA150AD26DD592F0C8071AF77D
+- generatedChecksum: 748CA89D826B215336B575C1AFDDE9DC
   logicalPath: config/default/peripheral/tc
-  name: plib_tc4.c
+  name: plib_tc5.c
   physicalPath: peripheral/tc
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 1548EDAA150AD26DD592F0C8071AF77D
+  userChecksum: 748CA89D826B215336B575C1AFDDE9DC
 - generatedChecksum: 27AD8FA6EAB1736868C28DA66448CC6C
   logicalPath: config/default/peripheral/tcc
   name: plib_tcc0.c
@@ -363,13 +363,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: CB8D4E72D581CDEFB0BB729ADC52D698
-- generatedChecksum: 3531A027EB79FFDB6FD3FDD10D3ECC6C
+- generatedChecksum: D04AA7AC5B1112A3D3648493D3C091E2
   logicalPath: config/default
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 3531A027EB79FFDB6FD3FDD10D3ECC6C
+  userChecksum: D04AA7AC5B1112A3D3648493D3C091E2
 - generatedChecksum: ACB7AD12FD525895ABA47C26F4F9A683
   logicalPath: FreeRTOS/Source/include
   name: deprecated_definitions.h
@@ -734,13 +734,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 81BFD57D170620FCDEA9BC052F1F7967
-- generatedChecksum: 5D845109D46EC363EC8B7E5C2BF24000
+- generatedChecksum: C07D8D40AE044D3ED6D313BFE43B675C
   logicalPath: config/default/peripheral/tc
-  name: plib_tc4.h
+  name: plib_tc5.h
   physicalPath: peripheral/tc
   security: NON_SECURE
   type: HEADER
-  userChecksum: 5D845109D46EC363EC8B7E5C2BF24000
+  userChecksum: C07D8D40AE044D3ED6D313BFE43B675C
 - generatedChecksum: B226E4D7CCB0F53AFA74446005A75252
   logicalPath: config/default/peripheral/tc
   name: plib_tc_common.h

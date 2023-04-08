@@ -174,7 +174,7 @@ void SYS_Initialize ( void* data )
     ADC_Initialize();
     TC3_TimerInitialize();
 
-    TC4_CompareInitialize();
+    TC5_CompareInitialize();
 
     TCC1_CompareInitialize();
 

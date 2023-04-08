@@ -54,14 +54,15 @@ extern "C" {
         CRSF_FRAMETYPE_MSP_WRITE = 0x7C, // write with 8 byte chunked binary (OpenTX outbound telemetry buffer limit)
     };
 
-    typedef struct {
+    typedef struct __attribute__((packed)) {
         uint8_t address;
         uint8_t length;
         uint8_t type;
         uint8_t data[0];
-    } CRSF_Frame;
+    }
+    CRSF_Frame;
 
-    typedef struct __attribute((packed)) {
+    typedef struct __attribute__((packed)) {
         unsigned ch0 : 11;
         unsigned ch1 : 11;
         unsigned ch2 : 11;
@@ -81,7 +82,7 @@ extern "C" {
     }
     CRSF_ChannelData;
 
-    typedef struct {
+    typedef struct __attribute__((packed)) {
         uint8_t uplink_RSSI_1;
         uint8_t uplink_RSSI_2;
         uint8_t uplink_Link_quality;
@@ -92,9 +93,10 @@ extern "C" {
         uint8_t downlink_RSSI;
         uint8_t downlink_Link_quality;
         int8_t downlink_SNR;
-    } CRSF_LinkStatistics;
+    }
+    CRSF_LinkStatistics;
 
-    typedef struct __attribute((packed)) {
+    typedef struct __attribute__((packed)) {
         unsigned voltage : 16; // mv * 100 BigEndian
         unsigned current : 16; // ma * 100
         unsigned capacity : 24; // mah
@@ -102,11 +104,21 @@ extern "C" {
     }
     CRSF_sensor_battery;
 
-    typedef struct __attribute((packed)) {
+    typedef struct __attribute__((packed)) {
         uint16_t altitude; // Altitude in decimeters + 10000dm, or Altitude in meters if high bit is set, BigEndian
         int16_t verticalspd; // Vertical speed in cm/s, BigEndian
     }
     CRSF_sensor_baro_vario;
+
+    typedef struct __attribute__((packed)) {
+        int32_t latitude; // degree / 10,000,000 big endian
+        int32_t longitude; // degree / 10,000,000 big endian
+        uint16_t groundspeed; // km/h / 10 big endian
+        uint16_t heading; // GPS heading, degree/100 big endian
+        uint16_t altitude; // meters, +1000m big endian
+        uint8_t satellites; // satellites
+    }
+    CRSF_sensor_gps;
 
     void initCRSF(void);
     uint8_t calcCRC(uint8_t *data, uint8_t len);

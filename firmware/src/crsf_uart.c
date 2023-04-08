@@ -17,12 +17,12 @@ bool txIsBusy(void) {
 }
 
 void writeUart(uint8_t *buffer, int len) {
-    //TODO should this use DMA?
+    //TODO should this use DMA? Yes!
     if (!txInProgress) {
         txInProgress = true;
         txData = buffer;
         txBytesRemaining = len;
-        SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk;
+        SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) SERCOM_USART_INT_INTFLAG_DRE_Msk;
     }
 }
 
@@ -74,7 +74,7 @@ void rxISR(void) {
         if (pos > 1 && remaining == 0) {
             pos = 0;
             BaseType_t pxHigherPriorityTaskWoken = pdFALSE;
-            xQueueOverwriteFromISR(packetQueue, (void *)buffer, &pxHigherPriorityTaskWoken);
+            xQueueOverwriteFromISR(packetQueue, (void *) buffer, &pxHigherPriorityTaskWoken);
             portEND_SWITCHING_ISR(pxHigherPriorityTaskWoken);
         }
     }
@@ -85,32 +85,23 @@ void txISR(void) {
     ++txData;
     --txBytesRemaining;
     if (txBytesRemaining == 0) {
-        SERCOM0_REGS->USART_INT.SERCOM_INTENCLR = (uint8_t)SERCOM_USART_INT_INTENCLR_DRE_Msk;
+        SERCOM0_REGS->USART_INT.SERCOM_INTENCLR = (uint8_t) SERCOM_USART_INT_INTENCLR_DRE_Msk;
         txInProgress = false;
     }
 }
 
 void SERCOM0_CRSF_USART_InterruptHandler(void) {
-    bool testCondition = false;
-    //TODO can these be cleaned up? Do we need to check the enable bits?
-    if (SERCOM0_REGS->USART_INT.SERCOM_INTENSET != 0U) {
-        /* Checks for error flag */
-        testCondition = ((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk) == SERCOM_USART_INT_INTFLAG_ERROR_Msk);
-        testCondition = ((SERCOM0_REGS->USART_INT.SERCOM_INTENSET & SERCOM_USART_INT_INTENSET_ERROR_Msk) == SERCOM_USART_INT_INTENSET_ERROR_Msk) && testCondition;
-        if (testCondition) {
-            errorISR();
-        }
-        testCondition = ((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_DRE_Msk) == SERCOM_USART_INT_INTFLAG_DRE_Msk);
-        testCondition = ((SERCOM0_REGS->USART_INT.SERCOM_INTENSET & SERCOM_USART_INT_INTENSET_DRE_Msk) == SERCOM_USART_INT_INTENSET_DRE_Msk) && testCondition;
-        /* Checks for data register empty flag */
-        if (testCondition) {
-            txISR();
-        }
-        testCondition = ((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk) == SERCOM_USART_INT_INTFLAG_RXC_Msk);
-        testCondition = ((SERCOM0_REGS->USART_INT.SERCOM_INTENSET & SERCOM_USART_INT_INTENSET_RXC_Msk) == SERCOM_USART_INT_INTENSET_RXC_Msk) && testCondition;
-        /* Checks for receive complete flag */
-        if (testCondition) {
-            rxISR();
-        }
+    uint8_t testCondition;
+    testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk;
+    if (testCondition) {
+        errorISR();
+    }
+    testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_DRE_Msk;
+    if (testCondition) {
+        txISR();
+    }
+    testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk;
+    if (testCondition) {
+        rxISR();
     }
 }

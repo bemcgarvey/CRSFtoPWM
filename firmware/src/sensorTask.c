@@ -3,6 +3,7 @@
 #include "sensors.h"
 #include "settings.h"
 #include "debug.h"
+#include "crsf.h"
 
 TaskHandle_t sensorTaskHandle;
 
@@ -10,6 +11,7 @@ void sensorTask(void *pvParameter) {
     vTaskDelay(100);
     initSensors();
     int delay;
+    float dAlt = 0.37;
     delay = 500 / settings.sensorRate;
     debugMsg("Sensors initialized");
     if (altimeterHealthy) {
@@ -20,13 +22,10 @@ void sensorTask(void *pvParameter) {
     while (1) {
         vTaskDelay(delay);
         float alt = getAltitude();
-        //Altitude in m
-        (void)alt;
-        //TODO send it
+        //TODO need to smooth dAlt over at least a second
+        sendAltitudeTelem(alt, dAlt);
         vTaskDelay(delay);
         float v = getVBat();
-        //Voltage in V
-        (void)v;
-        //TODO send it
+        sendBatteryTelem(v);
     }
 }

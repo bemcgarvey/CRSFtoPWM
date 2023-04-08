@@ -1517,7 +1517,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0x11f3c'}
+        attributes: {id: core, value: '0x12f3c'}
   - type: Boolean
     attributes: {id: PORT_GROUP_0}
     children:
@@ -2387,21 +2387,14 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'true'}
+        attributes: {id: core, value: 'false'}
   - type: Integer
     attributes: {id: TC4_CLOCK_FREQUENCY}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '3200000'}
-  - type: Boolean
-    attributes: {id: TC4_INTERRUPT_ENABLE}
-    children:
-    - type: Values
-      children:
-      - type: Dynamic
-        attributes: {id: tc4, value: 'false'}
+        attributes: {id: core, value: '0'}
   - type: Boolean
     attributes: {id: TC4_INTERRUPT_ENABLE_UPDATE}
     children:
@@ -2409,34 +2402,27 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: 'true'}
-  - type: String
-    attributes: {id: TC4_INTERRUPT_HANDLER}
-    children:
-    - type: Values
-      children:
-      - type: Dynamic
-        attributes: {id: tc4, value: TC4_Handler}
-  - type: Boolean
-    attributes: {id: TC4_INTERRUPT_HANDLER_LOCK}
-    children:
-    - type: Values
-      children:
-      - type: Dynamic
-        attributes: {id: tc4, value: 'false'}
   - type: Boolean
     attributes: {id: TC5_CLOCK_ENABLE}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: 'false'}
+        attributes: {id: core, value: 'true'}
   - type: Integer
     attributes: {id: TC5_CLOCK_FREQUENCY}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: core, value: '0'}
+        attributes: {id: core, value: '3200000'}
+  - type: Boolean
+    attributes: {id: TC5_INTERRUPT_ENABLE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tc5, value: 'false'}
   - type: Boolean
     attributes: {id: TC5_INTERRUPT_ENABLE_UPDATE}
     children:
@@ -2444,6 +2430,20 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: 'true'}
+  - type: String
+    attributes: {id: TC5_INTERRUPT_HANDLER}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tc5, value: TC5_Handler}
+  - type: Boolean
+    attributes: {id: TC5_INTERRUPT_HANDLER_LOCK}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tc5, value: 'false'}
   - type: Boolean
     attributes: {id: TCC0_CLOCK_ENABLE}
     children:

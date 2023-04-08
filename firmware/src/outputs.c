@@ -22,11 +22,11 @@ void enableOutputs(void) {
     TCC0_CompareStart();
     TCC1_CompareStart();
     TCC2_CompareStart();
-    TC4_CompareStart();
+    TC5_CompareStart();
 }
 
 void disableThrottle(void) {
-    /*switch(settings.throttleChannel) {
+    switch(settings.throttleChannel) {
         case 0: TCC1_Compare24bitMatchSet(0, 0);
         break;
         case 1: TCC1_Compare24bitMatchSet(1, 0);
@@ -35,7 +35,7 @@ void disableThrottle(void) {
         break;
         case 3: TCC0_Compare24bitMatchSet(1, 0);
         break;
-    }*/
+    }
 }
 
 void setPWMfrequency(int freq) {
@@ -69,8 +69,8 @@ void setOutput(int out, uint32_t value) {
     } else if (out < 8) {
         TCC2_Compare16bitMatchSet(out - 6, value);
     } else if (out == 8) {
-        TC4_Compare16bitMatch0Set(value);
+        TC5_Compare16bitMatch0Set(value);
     } else if (out == 9) {
-        TC4_Compare16bitMatch1Set(value);
+        TC5_Compare16bitMatch1Set(value);
     }
 }
