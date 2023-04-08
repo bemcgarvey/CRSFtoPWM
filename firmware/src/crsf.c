@@ -6,19 +6,10 @@ static uint8_t crsfTxBuffer[MAX_CRSF_PACKET];
 static uint8_t _lut[256];
 
 void initCRC(uint8_t poly);
-void T3Callback(TC_TIMER_STATUS status, uintptr_t context);
 
 void initCRSF(void) {
     initCRC(0xd5);
-    TC3_TimerCallbackRegister(T3Callback, (uintptr_t) NULL);
-    lastByteTick = 0;
-    synched = false;
-    TC3_TimerStart();
-    SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);
-}
-
-void T3Callback(TC_TIMER_STATUS status, uintptr_t context) {
-    ++lastByteTick;
+    initUart();
 }
 
 void initCRC(uint8_t poly) {

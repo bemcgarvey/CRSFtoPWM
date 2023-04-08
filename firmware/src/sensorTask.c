@@ -23,6 +23,7 @@ void sensorTask(void *pvParameter) {
         vTaskDelay(delay);
         float alt = getAltitude();
         //TODO need to smooth dAlt over at least a second
+        //TODO need to calculate relative altitude 
         sendAltitudeTelem(alt, dAlt);
         vTaskDelay(delay);
         float v = getVBat();

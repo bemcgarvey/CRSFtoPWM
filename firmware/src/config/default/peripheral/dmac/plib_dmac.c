@@ -61,6 +61,9 @@
 typedef struct
 {
     uint8_t                inUse;
+    DMAC_CHANNEL_CALLBACK  callback;
+
+    uintptr_t              context;
 
     bool                busyStatus;
 
@@ -94,6 +97,8 @@ void DMAC_Initialize( void )
     for(channel = 0U; channel < DMAC_CHANNELS_NUMBER; channel++)
     {
         dmacChObj->inUse = 0U;
+        dmacChObj->callback = NULL;
+        dmacChObj->context = 0U;
         dmacChObj->busyStatus = false;
 
         /* Point to next channel object */
@@ -116,6 +121,7 @@ void DMAC_Initialize( void )
     descriptor_section[0].DMAC_BTCTRL = (uint16_t)(DMAC_BTCTRL_BLOCKACT_INT | DMAC_BTCTRL_BEATSIZE_BYTE | DMAC_BTCTRL_VALID_Msk | DMAC_BTCTRL_SRCINC_Msk );
 
     dmacChannelObj[0].inUse = 1U;
+    DMAC_REGS->DMAC_CHINTENSET = (uint8_t)(DMAC_CHINTENSET_TERR_Msk | DMAC_CHINTENSET_TCMPL_Msk);
 
     /* Enable the DMAC module & Priority Level x Enable */
     DMAC_REGS->DMAC_CTRL = (uint16_t)(DMAC_CTRL_DMAENABLE_Msk | DMAC_CTRL_LVLEN0_Msk | DMAC_CTRL_LVLEN1_Msk | DMAC_CTRL_LVLEN2_Msk | DMAC_CTRL_LVLEN3_Msk);
@@ -327,6 +333,15 @@ void DMAC_ChannelResume ( DMAC_CHANNEL channel )
     DMAC_REGS->DMAC_CHID = channelId;
 }
 
+/*******************************************************************************
+    This function function allows a DMAC PLIB client to set an event handler.
+********************************************************************************/
+void DMAC_ChannelCallbackRegister( DMAC_CHANNEL channel, const DMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle )
+{
+    dmacChannelObj[channel].callback = eventHandler;
+
+    dmacChannelObj[channel].context  = contextHandle;
+}
 
 /*******************************************************************************
     This function returns the current channel settings for the specified DMAC Channel
@@ -490,3 +505,59 @@ uint32_t DMAC_CRCCalculate(void *buffer, uint32_t length, DMAC_CRC_SETUP CRCSetu
     return (DMAC_REGS->DMAC_CRCCHKSUM);
 }
 
+/*******************************************************************************
+    This function handles the DMA interrupt events.
+*/
+void DMAC_InterruptHandler( void )
+{
+    DMAC_CH_OBJECT  *dmacChObj = NULL;
+    uint8_t channel = 0U;
+    uint8_t channelId = 0U;
+    volatile uint32_t chanIntFlagStatus = 0U;
+    DMAC_TRANSFER_EVENT event = DMAC_TRANSFER_EVENT_ERROR;
+
+    /* Get active channel number */
+    channel = (uint8_t)((uint32_t)DMAC_REGS->DMAC_INTPEND & DMAC_INTPEND_ID_Msk);
+
+    dmacChObj = (DMAC_CH_OBJECT *)&dmacChannelObj[channel];
+
+    /* Save channel ID */
+    channelId = (uint8_t)DMAC_REGS->DMAC_CHID;
+
+    /* Update the DMAC channel ID */
+    DMAC_REGS->DMAC_CHID = channel;
+
+    /* Get the DMAC channel interrupt status */
+    chanIntFlagStatus = (uint8_t)DMAC_REGS->DMAC_CHINTFLAG;
+
+    /* Verify if DMAC Channel Transfer complete flag is set */
+    if ((chanIntFlagStatus & DMAC_CHINTENCLR_TCMPL_Msk) == DMAC_CHINTENCLR_TCMPL_Msk)
+    {
+        /* Clear the transfer complete flag */
+        DMAC_REGS->DMAC_CHINTFLAG = (uint8_t)DMAC_CHINTENCLR_TCMPL_Msk;
+
+        event = DMAC_TRANSFER_EVENT_COMPLETE;
+
+        dmacChObj->busyStatus = false;
+    }
+
+    /* Verify if DMAC Channel Error flag is set */
+    if ((chanIntFlagStatus & DMAC_CHINTENCLR_TERR_Msk) == DMAC_CHINTENCLR_TERR_Msk)
+    {
+        /* Clear transfer error flag */
+        DMAC_REGS->DMAC_CHINTFLAG = (uint8_t)DMAC_CHINTENCLR_TERR_Msk;
+
+        event = DMAC_TRANSFER_EVENT_ERROR;
+
+        dmacChObj->busyStatus = false;
+    }
+
+    /* Execute the callback function */
+    if (dmacChObj->callback != NULL)
+    {
+        dmacChObj->callback (event, dmacChObj->context);
+    }
+
+    /* Restore channel ID */
+    DMAC_REGS->DMAC_CHID = channelId;
+}

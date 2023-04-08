@@ -12,9 +12,7 @@
 extern "C" {
 #endif
 
-extern volatile uint32_t lastByteTick; 
-extern volatile bool synched;
-
+void initUart(void);
 bool txIsBusy(void);
 void writeUart(uint8_t *buffer, int len);
 

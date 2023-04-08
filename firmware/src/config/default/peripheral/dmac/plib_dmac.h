@@ -126,6 +126,8 @@ typedef struct
 
 typedef uint32_t DMAC_CHANNEL_CONFIG;
 
+typedef void (*DMAC_CHANNEL_CALLBACK) (DMAC_TRANSFER_EVENT event, uintptr_t contextHandle);
+void DMAC_ChannelCallbackRegister (DMAC_CHANNEL channel, const DMAC_CHANNEL_CALLBACK eventHandler, const uintptr_t contextHandle);
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interface Routines

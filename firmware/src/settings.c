@@ -17,7 +17,6 @@ bool loadSettings(void) {
         *p = romSettings.bytes[i];
         ++p;
     }
-    //TODO add a crc check??
     return true;
 }
 

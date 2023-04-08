@@ -6,23 +6,30 @@
 volatile static uint8_t buffer[64];
 volatile static int pos = 0;
 volatile static int remaining;
-volatile uint32_t lastByteTick = 0;
-volatile bool synched = false;
+volatile static uint32_t lastByteTick = 0;
+volatile static bool synched = false;
 volatile static bool txInProgress = false;
-volatile static uint8_t *txData;
-volatile static int txBytesRemaining;
+
+void DMA0Callback(DMAC_TRANSFER_EVENT event, uintptr_t contextHandle);
+void T3Callback(TC_TIMER_STATUS status, uintptr_t context);
+
+void initUart(void) {
+    TC3_TimerCallbackRegister(T3Callback, (uintptr_t) NULL);
+    DMAC_ChannelCallbackRegister (DMAC_CHANNEL_0, DMA0Callback, (uintptr_t) NULL);
+    lastByteTick = 0;
+    synched = false;
+    TC3_TimerStart();
+    SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);
+}
 
 bool txIsBusy(void) {
     return txInProgress;
 }
 
 void writeUart(uint8_t *buffer, int len) {
-    //TODO should this use DMA? Yes!
     if (!txInProgress) {
         txInProgress = true;
-        txData = buffer;
-        txBytesRemaining = len;
-        SERCOM0_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) SERCOM_USART_INT_INTFLAG_DRE_Msk;
+        DMAC_ChannelTransfer (DMAC_CHANNEL_0, buffer, (void *)&(SERCOM0_REGS->USART_INT.SERCOM_DATA), len);
     }
 }
 
@@ -80,28 +87,22 @@ void rxISR(void) {
     }
 }
 
-void txISR(void) {
-    SERCOM0_REGS->USART_INT.SERCOM_DATA = *txData;
-    ++txData;
-    --txBytesRemaining;
-    if (txBytesRemaining == 0) {
-        SERCOM0_REGS->USART_INT.SERCOM_INTENCLR = (uint8_t) SERCOM_USART_INT_INTENCLR_DRE_Msk;
-        txInProgress = false;
-    }
-}
-
 void SERCOM0_CRSF_USART_InterruptHandler(void) {
     uint8_t testCondition;
     testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk;
     if (testCondition) {
         errorISR();
     }
-    testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_DRE_Msk;
-    if (testCondition) {
-        txISR();
-    }
     testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk;
     if (testCondition) {
         rxISR();
     }
+}
+
+void DMA0Callback(DMAC_TRANSFER_EVENT event, uintptr_t contextHandle) {
+    txInProgress = false;
+}
+
+void T3Callback(TC_TIMER_STATUS status, uintptr_t context) {
+    ++lastByteTick;
 }

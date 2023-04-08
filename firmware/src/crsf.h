@@ -121,7 +121,6 @@ extern "C" {
     CRSF_sensor_gps;
 
     void initCRSF(void);
-    uint8_t calcCRC(uint8_t *data, uint8_t len);
     void sendBatteryTelem(float voltage);
     void sendAltitudeTelem(float altitude, float vSpeed);
 
