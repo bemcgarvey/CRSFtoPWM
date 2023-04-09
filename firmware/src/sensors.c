@@ -2,6 +2,7 @@
 #include "sensors.h"
 #include "ms5637.h"
 #include "debug.h"
+#include "settings.h"
 #include <math.h>
 
 void initSensors(void) {
@@ -25,5 +26,5 @@ float getVBat(void) {
     while (!ADC_ConversionStatusGet());
     int result = ADC_ConversionResultGet();
     ADC_Disable();
-    return result * ADC_COUNT_TO_VOLT;
+    return (result * ADC_COUNT_TO_VOLT) + settings.batCalibration;
 }

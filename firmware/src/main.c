@@ -14,7 +14,7 @@ int main ( void )
     printf("Starting\r\n");
     loadSettings();
     printf("Settings loaded\r\n");
-    printf("%d Hz %d Hz %.1fV\r\n", settings.servoRate, settings.sensorRate, settings.batCalibration);
+    printf("Servo rate %d Hz, Sensor rate %d Hz\r\n", settings.servoRate, settings.sensorRate);
     initTasks();  //Starts scheduler, does not return
     while ( true )
     {

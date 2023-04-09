@@ -29,7 +29,7 @@ extern "C" {
         uint8_t i2cSensors;
         float batCalibration;
     } Settings;
-
+    
     extern Settings settings;
     extern bool altimeterHealthy;
     extern bool failsafeEnabled;

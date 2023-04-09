@@ -2,7 +2,7 @@
 #include "crsf.h"
 #include "crsf_uart.h"
 
-static uint8_t crsfTxBuffer[MAX_CRSF_PACKET];
+static uint8_t __attribute__((aligned(4))) crsfTxBuffer[MAX_CRSF_PACKET];
 static uint8_t _lut[256];
 
 void initCRC(uint8_t poly);
