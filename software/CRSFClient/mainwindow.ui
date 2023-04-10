@@ -1135,7 +1135,10 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="connectButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -1224,7 +1227,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="saveSettingsButton">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -1237,7 +1240,7 @@
      <string>Save</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="readSettingsButton">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -1250,7 +1253,7 @@
      <string>Read Settings</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>192</x>
