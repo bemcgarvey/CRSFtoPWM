@@ -12,9 +12,9 @@
 extern "C" {
 #endif
 
-#define DEBUG_LEVEL 1
+#define DEBUG_MAX_MSG_LEN   30   
     
-    void debugMsg(char *msg);
+    void debugMsg(const char *msg, ...);
 
 
 #ifdef	__cplusplus

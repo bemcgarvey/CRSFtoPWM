@@ -17,7 +17,6 @@ extern TaskHandle_t sensorTaskHandle;
 extern TaskHandle_t rxTaskHandle;
 extern TaskHandle_t sbusTaskHandle;
 
-#define DEBUG_MAX_MSG_LEN   30
 extern QueueHandle_t debugQueue;
 extern QueueHandle_t packetQueue;
 
