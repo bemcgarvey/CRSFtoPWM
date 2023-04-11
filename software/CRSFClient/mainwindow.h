@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QtSerialPort/QSerialPort>
+#include "settings.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,12 +28,15 @@ private:
     enum {STATE_IDLE = 0, STATE_WAIT_VERSION, STATE_WAIT_SETTINGS, STATE_WAIT_VERIFY} state;
     int bytesNeeded;
     void updateControls();
+    void updateSettings();
     int connectAttempts;
+    Settings settings;
 private slots:
     void updatePortMenu();
     void comPortSelected();
     void onReadyRead();
     void on_connectButton_clicked();
     void on_readSettingsButton_clicked();
+    void on_saveSettingsButton_clicked();
 };
 #endif // MAINWINDOW_H

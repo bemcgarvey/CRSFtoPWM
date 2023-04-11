@@ -21,7 +21,50 @@ MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::updateControls()
 {
-    qDebug() << "update";
+    ui->out1ComboBox->setCurrentIndex(settings.ouputMap[0]);
+    ui->out2ComboBox->setCurrentIndex(settings.ouputMap[1]);
+    ui->out3ComboBox->setCurrentIndex(settings.ouputMap[2]);
+    ui->out4ComboBox->setCurrentIndex(settings.ouputMap[3]);
+    ui->out5ComboBox->setCurrentIndex(settings.ouputMap[4]);
+    ui->out6ComboBox->setCurrentIndex(settings.ouputMap[5]);
+    ui->out7ComboBox->setCurrentIndex(settings.ouputMap[6]);
+    ui->out8ComboBox->setCurrentIndex(settings.ouputMap[7]);
+    ui->out9ComboBox->setCurrentIndex(settings.ouputMap[8]);
+    ui->out10ComboBox->setCurrentIndex(settings.ouputMap[9]);
+    ui->throttleComboBox->setCurrentIndex(settings.throttleChannel);
+    int index;
+    index = ui->servoRateComboBox->findText(QString::number(settings.servoRate) + " Hz");
+    ui->servoRateComboBox->setCurrentIndex(index);
+    index = ui->sensorRateComboBox->findText(QString::number(settings.sensorRate) + " Hz");
+    ui->sensorRateComboBox->setCurrentIndex(index);
+    ui->failsafeComboBox->setCurrentIndex(settings.failsafeMode);
+    ui->uartComboBox->setCurrentIndex(settings.uartMode);
+    ui->sBusCheckBox->setChecked(settings.sBusEnabled);
+}
+
+void MainWindow::updateSettings()
+{
+    settings.ouputMap[0] = ui->out1ComboBox->currentIndex();
+    settings.ouputMap[1] = ui->out2ComboBox->currentIndex();
+    settings.ouputMap[2] = ui->out3ComboBox->currentIndex();
+    settings.ouputMap[3] = ui->out4ComboBox->currentIndex();
+    settings.ouputMap[4] = ui->out5ComboBox->currentIndex();
+    settings.ouputMap[5] = ui->out6ComboBox->currentIndex();
+    settings.ouputMap[6] = ui->out7ComboBox->currentIndex();
+    settings.ouputMap[7] = ui->out8ComboBox->currentIndex();
+    settings.ouputMap[8] = ui->out9ComboBox->currentIndex();
+    settings.ouputMap[9] = ui->out10ComboBox->currentIndex();
+    settings.throttleChannel = ui->throttleComboBox->currentIndex();
+    QString str;
+    str = ui->servoRateComboBox->currentText();
+    str.remove(" Hz");
+    settings.servoRate = str.toShort();
+    str = ui->sensorRateComboBox->currentText();
+    str.remove(" Hz");
+    settings.sensorRate = str.toShort();
+    settings.failsafeMode = ui->failsafeComboBox->currentIndex();
+    settings.uartMode = ui->uartComboBox->currentIndex();
+    settings.sBusEnabled = ui->sBusCheckBox->isChecked() ? 1 : 0;
 }
 
 void MainWindow::updatePortMenu() {
@@ -75,40 +118,52 @@ void MainWindow::onReadyRead() {
             bufferPos += bytesReceived;
             if (bytesNeeded == 0) {
                 if (*(uint32_t *)buffer == DEVICE_SIGNATURE) {
-                  connectedLabel->setText(QString("Firmware Version %1.%2")
-                                              .arg((int)buffer[5])
-                                              .arg((int)buffer[4]));
-                  ui->connectButton->setEnabled(false);
-                  state = STATE_IDLE;
+                    connectedLabel->setText(QString("Firmware Version %1.%2")
+                                                .arg((int)buffer[5])
+                                                .arg((int)buffer[4]));
+                    ui->connectButton->setEnabled(false);
+                    ui->readSettingsButton->setEnabled(true);
+                    ui->saveSettingsButton->setEnabled(true);
+                    on_readSettingsButton_clicked();
                 } else {
-                  while (port->bytesAvailable() > 0) {
-                    port->read(buffer, 64); // clear out extra bytes from device power on
-                  }
-                  ++connectAttempts;
-                  if (connectAttempts < 10) {
-                    buffer[0] = CMD_GET_VERSION;
-                    bytesNeeded = 6;
-                    bufferPos = 0;
-                    state = STATE_WAIT_VERSION;
-                    port->write(buffer, 1);
-                  } else {
-                    QMessageBox::critical(this, "CRSF", "Unable to connect");
-                    state = STATE_IDLE;
-                  }
+                    while (port->bytesAvailable() > 0) {
+                        port->read(buffer, 64); // clear out extra bytes from device power on
+                    }
+                    ++connectAttempts;
+                    if (connectAttempts < 10) {
+                        buffer[0] = CMD_GET_VERSION;
+                        bytesNeeded = 6;
+                        bufferPos = 0;
+                        state = STATE_WAIT_VERSION;
+                        port->write(buffer, 1);
+                    } else {
+                        QMessageBox::critical(this, "CRSF", "Unable to connect");
+                        state = STATE_IDLE;
+                    }
                 }
             }
             break;
         case STATE_WAIT_SETTINGS:
+        case STATE_WAIT_VERIFY:
             bytesReceived =
                 static_cast<int>(port->read(&buffer[bufferPos], bytesNeeded));
             bytesNeeded -= bytesReceived;
             bufferPos += bytesReceived;
             if (bytesNeeded == 0) {
-                updateControls();
-                state = STATE_IDLE;
+                if (state == STATE_WAIT_SETTINGS) {
+                    memcpy(&settings, buffer, sizeof(Settings));
+                    ui->statusbar->showMessage("Settings read", 2000);
+                    updateControls();
+                    state = STATE_IDLE;
+                } else if (state == STATE_WAIT_VERIFY) {
+                    if (memcmp(buffer, &settings, sizeof(settings)) != 0) {
+                        QMessageBox::critical(this, "CRSF", "Verify settings failed.  Settings are not saved.");
+                    } else {
+                        QMessageBox::information(this, "CRSF", "Settings saved.");
+                    }
+                    state = STATE_IDLE;
+                }
             }
-            break;
-        case STATE_WAIT_VERIFY:
             break;
         case STATE_IDLE:
             break;
@@ -135,5 +190,18 @@ void MainWindow::on_readSettingsButton_clicked()
     bufferPos = 0;
     state = STATE_WAIT_SETTINGS;
     port->write(buffer, 1);
+}
+
+
+void MainWindow::on_saveSettingsButton_clicked()
+{
+    updateSettings();
+    buffer[0] = CMD_SAVE_SETTINGS;
+    port->write(buffer, 1);
+    memcpy(buffer, &settings, sizeof(Settings));
+    port->write(buffer, sizeof(Settings));
+    bytesNeeded = sizeof(Settings);
+    bufferPos = 0;
+    state = STATE_WAIT_VERIFY;
 }
 
