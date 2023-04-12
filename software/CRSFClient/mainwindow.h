@@ -31,6 +31,7 @@ private:
     void updateSettings();
     int connectAttempts;
     Settings settings;
+    float vBat;
 private slots:
     void updatePortMenu();
     void comPortSelected();
@@ -38,5 +39,6 @@ private slots:
     void on_connectButton_clicked();
     void on_readSettingsButton_clicked();
     void on_saveSettingsButton_clicked();
+    void on_actionExit_triggered();
 };
 #endif // MAINWINDOW_H

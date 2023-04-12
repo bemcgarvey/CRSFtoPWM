@@ -1245,7 +1245,7 @@
         <item>
          <widget class="QDoubleSpinBox" name="voltageSpinBox">
           <property name="minimum">
-           <double>7.400000000000000</double>
+           <double>4.500000000000000</double>
           </property>
           <property name="maximum">
            <double>25.199999999999999</double>
@@ -1254,7 +1254,7 @@
            <double>0.100000000000000</double>
           </property>
           <property name="value">
-           <double>12.400000000000000</double>
+           <double>4.500000000000000</double>
           </property>
          </widget>
         </item>

@@ -33,24 +33,15 @@ void serialMain(void) {
                 break;
             case CMD_GET_SETTINGS:
                 SERCOM1_USART_Write(&settings, sizeof(Settings));
-                break;
-            case CMD_GET_VOLTAGE:
                 *(float *)serialBuffer = getVBat();
                 SERCOM1_USART_Write(serialBuffer, sizeof(float));
                 break;
             case CMD_SAVE_SETTINGS:
-                //TODO do we need to preserve the battery calibration value?
                 SERCOM1_USART_Read(&settings, sizeof(Settings));
                 saveSettings();
                 memset(&settings, 0, sizeof(Settings));
                 loadSettings();
                 SERCOM1_USART_Write(&settings, sizeof(Settings));
-                break;
-            case CMD_SET_VOLTAGE:
-                //TODO can this just be done when saving settings?
-                SERCOM1_USART_Read(serialBuffer, sizeof(float));
-                settings.batCalibration = *(float *)serialBuffer - getVBat();
-                saveSettings();
                 break;
         }
     }

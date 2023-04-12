@@ -40,6 +40,7 @@ void MainWindow::updateControls()
     ui->failsafeComboBox->setCurrentIndex(settings.failsafeMode);
     ui->uartComboBox->setCurrentIndex(settings.uartMode);
     ui->sBusCheckBox->setChecked(settings.sBusEnabled);
+    ui->voltageSpinBox->setValue(vBat);
 }
 
 void MainWindow::updateSettings()
@@ -65,6 +66,7 @@ void MainWindow::updateSettings()
     settings.failsafeMode = ui->failsafeComboBox->currentIndex();
     settings.uartMode = ui->uartComboBox->currentIndex();
     settings.sBusEnabled = ui->sBusCheckBox->isChecked() ? 1 : 0;
+    settings.batCalibration = settings.batCalibration + (ui->voltageSpinBox->value() - vBat);
 }
 
 void MainWindow::updatePortMenu() {
@@ -152,6 +154,7 @@ void MainWindow::onReadyRead() {
             if (bytesNeeded == 0) {
                 if (state == STATE_WAIT_SETTINGS) {
                     memcpy(&settings, buffer, sizeof(Settings));
+                    vBat = *(float *)&buffer[sizeof(Settings)];
                     ui->statusbar->showMessage("Settings read", 2000);
                     updateControls();
                     state = STATE_IDLE;
@@ -186,7 +189,7 @@ void MainWindow::on_connectButton_clicked() {
 void MainWindow::on_readSettingsButton_clicked()
 {
     buffer[0] = CMD_GET_SETTINGS;
-    bytesNeeded = sizeof(Settings);
+    bytesNeeded = sizeof(Settings) + sizeof(float);
     bufferPos = 0;
     state = STATE_WAIT_SETTINGS;
     port->write(buffer, 1);
@@ -203,5 +206,11 @@ void MainWindow::on_saveSettingsButton_clicked()
     bytesNeeded = sizeof(Settings);
     bufferPos = 0;
     state = STATE_WAIT_VERIFY;
+}
+
+
+void MainWindow::on_actionExit_triggered()
+{
+    close();
 }
 
