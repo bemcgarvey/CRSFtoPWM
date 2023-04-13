@@ -10,6 +10,8 @@
 #include "settings.h"
 #include "sbusTask.h"
 
+bool wdtResetHappened;
+
 QueueHandle_t debugQueue;
 QueueHandle_t packetQueue;
 
@@ -22,5 +24,6 @@ void initTasks(void) {
     }
     debugQueue = xQueueCreate(5, DEBUG_MAX_MSG_LEN);
     packetQueue = xQueueCreate(1, CHANNEL_PACKET_LEN);
+    WDT_Enable();
     vTaskStartScheduler();
 }

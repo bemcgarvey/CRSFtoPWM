@@ -8,24 +8,31 @@
 
 //TODO file headers
 
-int main ( void )
-{
+int main(void) {
     /* Initialize all modules */
-    bool serialDetected;
-    serialDetected = detectSerial();
-    SYS_Initialize ( NULL );
+    wdtResetHappened = false;
+    if (PM_ResetCauseGet() == PM_RESET_CAUSE_WDT_RESET) {
+        wdtResetHappened = true;
+    }
+    bool serialDetected = false;
+    if (!wdtResetHappened) {
+        serialDetected = detectSerial();
+    }
+    SYS_Initialize(NULL);
+    if (wdtResetHappened) {
+        printf("Watchdog timeout!!\r\n");
+    }
     printf("Starting\r\n");
     loadSettings();
     printf("Settings loaded\r\n");
     printf("Servo rate %d Hz, Sensor rate %d Hz\r\n", settings.servoRate, settings.sensorRate);
     if (serialDetected) {
         printf("Serial detected\r\n");
-        serialMain();  //Does not return;
+        serialMain(); //Does not return;
     }
-    initTasks();  //Starts scheduler, does not return
-    while ( true )
-    {
-        
+    initTasks(); //Starts scheduler, does not return
+    while (true) {
+
     }
-    return ( EXIT_FAILURE );
+    return ( EXIT_FAILURE);
 }

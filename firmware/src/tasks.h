@@ -12,6 +12,7 @@
 extern "C" {
 #endif
 
+extern bool wdtResetHappened; 
 void initTasks(void);
 
 

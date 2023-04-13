@@ -114,17 +114,31 @@ static void GCLK3_Initialize(void)
     }
 }
 
+
+static void GCLK4_Initialize(void)
+{
+    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(3U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(4U);
+
+    while((GCLK_REGS->GCLK_STATUS & GCLK_STATUS_SYNCBUSY_Msk) == GCLK_STATUS_SYNCBUSY_Msk)
+    {
+        /* wait for the Generator 4 synchronization */
+    }
+}
+
 void CLOCK_Initialize (void)
 {
     /* Function to Initialize the Oscillators */
     SYSCTRL_Initialize();
 
+    GCLK4_Initialize();
     DFLL_Initialize();
     GCLK0_Initialize();
     GCLK2_Initialize();
     GCLK3_Initialize();
 
 
+    /* Selection of the Generator and write Lock for WDT */
+    GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(3U) | GCLK_CLKCTRL_GEN(0x4U)  | GCLK_CLKCTRL_CLKEN_Msk;
     /* Selection of the Generator and write Lock for SERCOM0_CORE */
     GCLK_REGS->GCLK_CLKCTRL = GCLK_CLKCTRL_ID(20U) | GCLK_CLKCTRL_GEN(0x0U)  | GCLK_CLKCTRL_CLKEN_Msk;
     /* Selection of the Generator and write Lock for SERCOM1_CORE */

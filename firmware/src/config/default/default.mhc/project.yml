@@ -41,13 +41,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 31CEE4650E24C72160696DF93B55B48D
-- generatedChecksum: 99B36D4335342DB6082A61EAEB248A8F
+- generatedChecksum: FC52F2BB928358F22EF6075D831BAF2A
   logicalPath: config/default
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 99B36D4335342DB6082A61EAEB248A8F
+  userChecksum: FC52F2BB928358F22EF6075D831BAF2A
 - generatedChecksum: 95A349D8CBCDB551D76B4785B19B60E2
   logicalPath: config/default
   name: interrupts.c
@@ -90,13 +90,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: B8BC9F076A3ABE2B20981EF2F7CA9CDE
-- generatedChecksum: BCF49B3B6D9E937E43AED1851B934623
+- generatedChecksum: 28A40DBE1196D5F7D07C5A474F454767
   logicalPath: config/default/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
-  userChecksum: BCF49B3B6D9E937E43AED1851B934623
+  userChecksum: 28A40DBE1196D5F7D07C5A474F454767
 - generatedChecksum: 75DF079CB794845D267E8908F113646B
   logicalPath: config/default/peripheral/dmac
   name: plib_dmac.c
@@ -125,6 +125,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CDBE0E5D94C53410F5F34B566B5FF51F
+- generatedChecksum: 40BE387D1DAD9A04BF4E79D9BB271213
+  logicalPath: config/default/peripheral/pm
+  name: plib_pm.c
+  physicalPath: peripheral/pm
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: 40BE387D1DAD9A04BF4E79D9BB271213
 - generatedChecksum: A8A6AC3E0417DCBA2BD9762D256FC51C
   logicalPath: config/default/peripheral/port
   name: plib_port.c
@@ -195,6 +202,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 0ECA19AE77C0451BB8A9A94DB8D709A9
+- generatedChecksum: E7FD7ADC57B6F6EEE6315C4486C4EF5C
+  logicalPath: config/default/peripheral/wdt
+  name: plib_wdt.c
+  physicalPath: peripheral/wdt
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: E7FD7ADC57B6F6EEE6315C4486C4EF5C
 - generatedChecksum: 741A50663F6D5D6DFA0403DBF34EDF53
   logicalPath: FreeRTOS/Source/portable/GCC/ARM_CM0
   name: port.c
@@ -363,13 +377,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: CB8D4E72D581CDEFB0BB729ADC52D698
-- generatedChecksum: D04AA7AC5B1112A3D3648493D3C091E2
+- generatedChecksum: EEF0DCFFA87F7EE96CB62A2B488D59BB
   logicalPath: config/default
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: D04AA7AC5B1112A3D3648493D3C091E2
+  userChecksum: EEF0DCFFA87F7EE96CB62A2B488D59BB
 - generatedChecksum: ACB7AD12FD525895ABA47C26F4F9A683
   logicalPath: FreeRTOS/Source/include
   name: deprecated_definitions.h
@@ -678,6 +692,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: EF2F1BB1D2A75B3EEF721CF17362EFA1
+- generatedChecksum: E56E798FD5CA890A2BE7CC6D2D58A736
+  logicalPath: config/default/peripheral/pm
+  name: plib_pm.h
+  physicalPath: peripheral/pm
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: E56E798FD5CA890A2BE7CC6D2D58A736
 - generatedChecksum: FCBF7BFA4F0BFF5394ADE55C24547840
   logicalPath: config/default/peripheral/port
   name: plib_port.h
@@ -776,6 +797,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: A3CDE469C6A4D2725F34E837408E286C
+- generatedChecksum: AD5BC432377D1EFB5B464625F65873B0
+  logicalPath: config/default/peripheral/wdt
+  name: plib_wdt.h
+  physicalPath: peripheral/wdt
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: AD5BC432377D1EFB5B464625F65873B0
 - generatedChecksum: 242CE394C762D4EF35E9A0274DCB2308
   logicalPath: packs/ATSAMD21E18A_DFP/component
   name: pm.h
