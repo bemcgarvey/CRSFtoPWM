@@ -4,6 +4,7 @@
 #include "settings.h"
 #include "debug.h"
 #include "crsf.h"
+#include "rtosHandles.h"
 
 TaskHandle_t sensorTaskHandle;
 #define INITIAL_ALT_SAMPLES     4
@@ -45,5 +46,6 @@ void sensorTask(void *pvParameter) {
         vTaskDelay(delay);
         float v = getVBat();
         sendBatteryTelem(v);
+        xTaskNotify(watchdogTaskHandle, SENSOR_TASK_NOTIFY, eSetBits);
     }
 }

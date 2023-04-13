@@ -21,7 +21,7 @@ void rxTask(void *pvParameters) {
     setPWMfrequency(settings.servoRate);
     enableOutputs();
     while (1) {
-        if (xQueueReceive(packetQueue, packetBuffer, portMAX_DELAY) == pdTRUE) {
+        if (xQueueReceive(packetQueue, packetBuffer, 10) == pdTRUE) {
             ++packetCount;
             if (packetCount % 100 == 0) {
                 debugMsg("*");
@@ -35,6 +35,7 @@ void rxTask(void *pvParameters) {
                 }
             }
         }
+        xTaskNotify(watchdogTaskHandle, RX_TASK_NOTIFY, eSetBits);
     }
 }
 
@@ -72,6 +73,7 @@ void handleLinkPacket(void) {
             if (settings.failsafeMode == FAILSAFE_THROTTLE_OFF) {
                 disableThrottle();
             }
+            debugMsg("Failsafe engaged RSSI = %d", linkStats->uplink_RSSI_1);
         }
     }
 }

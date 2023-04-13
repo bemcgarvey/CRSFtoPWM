@@ -114,7 +114,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '10'}
+        attributes: {value: '8'}
   - type: KeyValueSet
     attributes: {id: DEVICE_WDT_WEN}
     children:

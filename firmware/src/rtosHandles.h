@@ -12,10 +12,12 @@
 extern "C" {
 #endif
 
+    enum {RX_TASK_NOTIFY = 0x01, SBUS_TASK_NOTIFY = 0x02, SENSOR_TASK_NOTIFY = 0x04};
 extern TaskHandle_t statusTaskHandle;
 extern TaskHandle_t sensorTaskHandle;
 extern TaskHandle_t rxTaskHandle;
 extern TaskHandle_t sbusTaskHandle;
+extern TaskHandle_t watchdogTaskHandle;
 
 extern QueueHandle_t debugQueue;
 extern QueueHandle_t packetQueue;

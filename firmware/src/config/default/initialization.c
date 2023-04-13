@@ -64,7 +64,7 @@
 
 #pragma config WDT_ENABLE = DISABLED
 #pragma config WDT_ALWAYSON = DISABLED
-#pragma config WDT_PER = CYC8192
+#pragma config WDT_PER = CYC2048
 
 #pragma config WDT_WINDOW_0 = SET
 #pragma config WDT_WINDOW_1 = 0x4U // Enter Hexadecimal value

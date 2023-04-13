@@ -9,6 +9,7 @@
 #include "crsf.h"
 #include "settings.h"
 #include "sbusTask.h"
+#include "watchdogTask.h"
 
 bool wdtResetHappened;
 
@@ -17,8 +18,11 @@ QueueHandle_t packetQueue;
 
 void initTasks(void) {
     xTaskCreate(statusTask, "statusTask", 128, NULL, 1, &statusTaskHandle);
-    xTaskCreate(sensorTask, "sensorTask", 512, NULL, 2, &sensorTaskHandle);
+    if (!wdtResetHappened) {
+        xTaskCreate(sensorTask, "sensorTask", 512, NULL, 2, &sensorTaskHandle);
+    }
     xTaskCreate(rxTask, "rxTask", 512, NULL, 4, &rxTaskHandle);
+    xTaskCreate(watchdogTask, "watchdogTask", 128, NULL, 1, &watchdogTaskHandle);
     if (settings.sBusEnabled) {
         xTaskCreate(sbusTask, "sbusTask", 512, NULL, 3, &sbusTaskHandle);
     }
