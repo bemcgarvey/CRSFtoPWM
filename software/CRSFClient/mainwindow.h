@@ -40,5 +40,6 @@ private slots:
     void on_readSettingsButton_clicked();
     void on_saveSettingsButton_clicked();
     void on_actionExit_triggered();
+    void on_actionAbout_triggered();
 };
 #endif // MAINWINDOW_H

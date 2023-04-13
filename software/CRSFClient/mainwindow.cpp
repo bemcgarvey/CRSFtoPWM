@@ -4,6 +4,7 @@
 #include "commands.h"
 #include "settings.h"
 #include <QMessageBox>
+#include "aboutdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), port(nullptr), state(STATE_IDLE) {
@@ -212,5 +213,12 @@ void MainWindow::on_saveSettingsButton_clicked()
 void MainWindow::on_actionExit_triggered()
 {
     close();
+}
+
+
+void MainWindow::on_actionAbout_triggered()
+{
+    auto dlg = std::make_unique<AboutDialog>(this);
+    dlg->exec();
 }
 

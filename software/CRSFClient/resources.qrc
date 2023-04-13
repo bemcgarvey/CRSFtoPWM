@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ELRSpwm.ico</file>
+        <file>image.png</file>
+    </qresource>
+</RCC>
