@@ -1,9 +1,12 @@
-/* 
- * File:   rtosHandles.h
- * Author: bemcg
- *
- * Created on April 3, 2023, 8:05 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: rtosHandles.h                             //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: freeRTOS task and queue handles    //
+/////////////////////////////////////////////////////
 
 #ifndef RTOSHANDLES_H
 #define	RTOSHANDLES_H

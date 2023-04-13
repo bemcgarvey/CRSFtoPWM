@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: crsf.c                                    //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: CRSF/ELRS protocol definitions     //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "crsf.h"
 #include "crsf_uart.h"

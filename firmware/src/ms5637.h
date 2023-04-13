@@ -1,9 +1,12 @@
-/* 
- * File:   ms5637.h
- * Author: bemcg
- *
- * Created on April 3, 2023, 3:04 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: ms5637.h                                  //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: ms5637 sensor functions            //
+/////////////////////////////////////////////////////
 
 #ifndef MS5637_H
 #define	MS5637_H

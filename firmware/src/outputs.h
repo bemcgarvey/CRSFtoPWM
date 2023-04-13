@@ -1,9 +1,12 @@
-/* 
- * File:   outputs.h
- * Author: bemcg
- *
- * Created on April 6, 2023, 9:40 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: outputs.h                                 //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: PWM output control                 //
+/////////////////////////////////////////////////////
 
 #ifndef OUTPUTS_H
 #define	OUTPUTS_H

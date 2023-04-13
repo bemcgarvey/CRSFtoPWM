@@ -1,9 +1,12 @@
-/* 
- * File:   rxTask.h
- * Author: bemcg
- *
- * Created on April 5, 2023, 8:48 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: rxTask.h                                  //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: rx task handler                    //
+/////////////////////////////////////////////////////
 
 #ifndef RXTASK_H
 #define	RXTASK_H

@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: sensorTask.c                              //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: sensor task handler                //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "sensorTask.h"
 #include "sensors.h"

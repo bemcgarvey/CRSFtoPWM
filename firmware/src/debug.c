@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: debug.c                                   //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: debug message function             //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "debug.h"
 #include <stdio.h>

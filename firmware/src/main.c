@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: main.c                                    //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: main function                      //
+/////////////////////////////////////////////////////
+
 #include <stddef.h>                     // Defines NULL
 #include <stdbool.h>                    // Defines true
 #include <stdlib.h>                     // Defines EXIT_FAILURE
@@ -5,8 +15,6 @@
 #include "tasks.h"
 #include "settings.h"
 #include "serial.h"
-
-//TODO file headers
 
 int main(void) {
     /* Initialize all modules */

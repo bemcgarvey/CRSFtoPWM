@@ -1,9 +1,12 @@
-/* 
- * File:   settings.h
- * Author: bemcg
- *
- * Created on April 4, 2023, 2:17 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: settings.h                                //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: settings definitions and functions //
+/////////////////////////////////////////////////////
 
 #ifndef SETTINGS_H
 #define	SETTINGS_H

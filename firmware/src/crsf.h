@@ -1,9 +1,12 @@
-/* 
- * File:   crsf.h
- * Author: bemcg
- *
- * Created on March 9, 2023, 11:41 AM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: crsf.h                                    //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: CRSF/ELRS protocol definitions     //
+/////////////////////////////////////////////////////
 
 #ifndef CRSF_H
 #define	CRSF_H

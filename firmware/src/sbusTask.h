@@ -1,9 +1,12 @@
-/* 
- * File:   sbusTask.h
- * Author: bemcg
- *
- * Created on April 8, 2023, 3:58 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: sbusTask.h                                //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: sBus task handler                  //
+/////////////////////////////////////////////////////
 
 #ifndef SBUSTASK_H
 #define	SBUSTASK_H

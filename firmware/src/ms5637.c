@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: ms5637.c                                  //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: ms5637 sensor functions            //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "ms5637.h"
 #include "settings.h"

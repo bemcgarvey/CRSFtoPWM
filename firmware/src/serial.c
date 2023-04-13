@@ -1,3 +1,12 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: serial.h                                  //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: serial interface functions         //
+/////////////////////////////////////////////////////
 
 #include "definitions.h"
 #include "serial.h"

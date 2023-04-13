@@ -1,9 +1,12 @@
-/* 
- * File:   crsf_uart.h
- * Author: bemcg
- *
- * Created on March 9, 2023, 2:57 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: crsf_uart.h                               //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: rx uart runctions                  //
+/////////////////////////////////////////////////////
 
 #ifndef CRSF_UART_H
 #define	CRSF_UART_H

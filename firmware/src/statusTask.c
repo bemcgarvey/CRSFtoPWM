@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: statusTask.c                              //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: status task handler                //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "debug.h"
 #include "statusTask.h"

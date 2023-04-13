@@ -1,9 +1,12 @@
-/* 
- * File:   sensors.h
- * Author: bemcg
- *
- * Created on April 3, 2023, 10:05 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: sensors.h                                 //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: sensor functions                   //
+/////////////////////////////////////////////////////
 
 #ifndef SENSORS_H
 #define	SENSORS_H

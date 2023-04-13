@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: sbus.c                                    //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: sBus functions and definitions     //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "sbus.h"
 #include "rxTask.h"

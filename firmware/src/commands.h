@@ -1,9 +1,12 @@
-/* 
- * File:   commands.h
- * Author: bemcg
- *
- * Created on April 9, 2023, 2:41 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: commands.h                                //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: serial commands                    //
+/////////////////////////////////////////////////////
 
 #ifndef COMMANDS_H
 #define	COMMANDS_H

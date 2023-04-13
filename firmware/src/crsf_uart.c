@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: crsf_uart.c                               //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: rx uart runctions                  //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "crsf_uart.h"
 #include "crsf.h"

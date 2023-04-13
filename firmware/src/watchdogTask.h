@@ -1,9 +1,12 @@
-/* 
- * File:   watchdogTask.h
- * Author: bemcg
- *
- * Created on April 12, 2023, 10:52 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: watchdogTask.h                            //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: watchdog task handler              //
+/////////////////////////////////////////////////////
 
 #ifndef WATCHDOGTASK_H
 #define	WATCHDOGTASK_H

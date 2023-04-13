@@ -1,9 +1,12 @@
-/* 
- * File:   debug.h
- * Author: bemcg
- *
- * Created on April 4, 2023, 8:38 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: debug.h                                   //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: debug message function             //
+/////////////////////////////////////////////////////
 
 #ifndef DEBUG_H
 #define	DEBUG_H

@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: settings.c                                //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: settings definitions and functions //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "settings.h"
 

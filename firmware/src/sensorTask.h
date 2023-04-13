@@ -1,9 +1,12 @@
-/* 
- * File:   sensorTask.h
- * Author: bemcg
- *
- * Created on April 3, 2023, 9:57 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: sensorTask.h                              //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: sensor task handler                //
+/////////////////////////////////////////////////////
 
 #ifndef SENSORTASK_H
 #define	SENSORTASK_H

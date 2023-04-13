@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: outputs.c                                 //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: PWM output control                 //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "outputs.h"
 #include "settings.h"

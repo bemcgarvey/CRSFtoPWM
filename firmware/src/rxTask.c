@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: rxTask.c                                  //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: rx task handler                    //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "rxTask.h"
 #include "rtosHandles.h"

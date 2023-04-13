@@ -1,9 +1,18 @@
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: tasks.c                                   //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: task creation                      //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "tasks.h"
 #include "rtosHandles.h"
 #include "statusTask.h"
 #include "sensorTask.h"
-#include "packetTask.h"
 #include "rxTask.h"
 #include "debug.h"
 #include "crsf.h"

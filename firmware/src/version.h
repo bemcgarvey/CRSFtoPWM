@@ -1,9 +1,12 @@
-/* 
- * File:   version.h
- * Author: bemcg
- *
- * Created on April 9, 2023, 2:43 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: version.h                                 //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: firmware version definition        //
+/////////////////////////////////////////////////////
 
 #ifndef VERSION_H
 #define	VERSION_H

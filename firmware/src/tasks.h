@@ -1,9 +1,12 @@
-/* 
- * File:   tasks.h
- * Author: bemcg
- *
- * Created on April 3, 2023, 8:04 PM
- */
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: tasks.h                                   //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: task creation                      //
+/////////////////////////////////////////////////////
 
 #ifndef TASKS_H
 #define	TASKS_H
