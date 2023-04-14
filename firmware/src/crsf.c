@@ -71,10 +71,11 @@ void sendAltitudeTelem(float altitude, float vSpeed) {
     frame->length = ALT_PAYLOAD_LEN;
     frame->type = CRSF_FRAMETYPE_BARO_ALTITUDE;
     CRSF_sensor_baro_vario *sensor = (CRSF_sensor_baro_vario *) frame->data;
-    uint16_t temp = altitude * 10 + 10000;
-    sensor->altitude = (temp >> 8) | (temp << 8);
+    int16_t temp = altitude * 10 + 10000;
+    temp &= 0x7fff; //make sure high bit is clear
+    sensor->altitude = ((temp >> 8) & 0x00ff) | (temp << 8);
     temp = vSpeed * 100;
-    sensor->verticalspd = (temp >> 8) | (temp << 8);
+    sensor->verticalspd = ((temp >> 8) & 0x00ff) | (temp << 8);
     crsfTxBuffer[ALT_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], ALT_PAYLOAD_LEN - 1);
     writeUart(crsfTxBuffer, ALT_PACKET_LEN);
 }
