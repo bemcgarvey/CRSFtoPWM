@@ -19,13 +19,14 @@ static uint8_t serialBuffer[64];
 
 bool detectSerial(void) {
     bool detected = false;
-    //Setup PA25 (CH10) as input with pullup enabled
-    PORT_REGS->GROUP[0].PORT_DIR = 0;
+    //Setup PA25 (OUT 10) as input with pullup enabled
+    PORT_REGS->GROUP[0].PORT_DIRCLR = (1U << 25);
+    PORT_REGS->GROUP[0].PORT_OUTSET = (1U << 25);
     PORT_REGS->GROUP[0].PORT_PINCFG[25] = 0x6U;
-    for (int i = 0; i < 100; ++i);  //short delay
     if (((PORT_REGS->GROUP[0].PORT_IN >> 25) & 1U) == 0) {
         detected = true;
     }
+    PORT_REGS->GROUP[0].PORT_OUTCLR = (1U << 25);
     return detected;
 }
 
