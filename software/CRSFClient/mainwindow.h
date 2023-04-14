@@ -29,7 +29,6 @@ private:
     int bytesNeeded;
     void updateControls();
     void updateSettings();
-    int connectAttempts;
     Settings settings;
     float vBat;
 private slots:

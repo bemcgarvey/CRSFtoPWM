@@ -167,7 +167,6 @@ void MainWindow::on_connectButton_clicked() {
         bytesNeeded = 6;
         bufferPos = 0;
         state = STATE_WAIT_VERSION;
-        connectAttempts = 0;
         port->write(buffer, 1);
 }
 
