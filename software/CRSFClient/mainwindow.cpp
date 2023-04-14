@@ -97,11 +97,10 @@ void MainWindow::comPortSelected()
             port->setParity(QSerialPort::NoParity);
             port->setStopBits(QSerialPort::OneStop);
             portLabel->setText(action->text());
-            while (port->bytesAvailable() > 0) {
-                port->read(buffer, 64); //clear out any extra bytes
-            }
             connect(port, &QSerialPort::readyRead, this, &MainWindow::onReadyRead);
             ui->connectButton->setEnabled(true);
+            buffer[0] = CMD_GET_VERSION;
+            port->write(buffer, 1); //Send a command to prime serial port
         } else {
             delete port;
             port = nullptr;
@@ -129,20 +128,8 @@ void MainWindow::onReadyRead() {
                     ui->saveSettingsButton->setEnabled(true);
                     on_readSettingsButton_clicked();
                 } else {
-                    while (port->bytesAvailable() > 0) {
-                        port->read(buffer, 64); // clear out extra bytes from device power on
-                    }
-                    ++connectAttempts;
-                    if (connectAttempts < 10) {
-                        buffer[0] = CMD_GET_VERSION;
-                        bytesNeeded = 6;
-                        bufferPos = 0;
-                        state = STATE_WAIT_VERSION;
-                        port->write(buffer, 1);
-                    } else {
-                        QMessageBox::critical(this, "CRSF", "Unable to connect");
-                        state = STATE_IDLE;
-                    }
+                    state = STATE_IDLE;
+                    QMessageBox::critical(this, "CRSF", "Unable to connect");
                 }
             }
             break;
@@ -170,15 +157,12 @@ void MainWindow::onReadyRead() {
             }
             break;
         case STATE_IDLE:
+            port->read(buffer, 64); //We're idle so discard any received bytes
             break;
         }
 }
 
 void MainWindow::on_connectButton_clicked() {
-        port->flush();
-        while (port->bytesAvailable() > 0) {
-            port->read(buffer, 64); // clear out any unread bytes
-        }
         buffer[0] = CMD_GET_VERSION;
         bytesNeeded = 6;
         bufferPos = 0;
