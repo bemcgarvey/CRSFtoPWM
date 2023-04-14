@@ -40,6 +40,8 @@ fp-info-cache
 **/dist
 **/build
 **/.generated_files
+**/release
+**/debug
 
 #Qt entries
 # C++ objects and libs
