@@ -28,6 +28,13 @@
 #define SERVO_LOW   988
 #define SERVO_HIGH  2012
 
+#define C1  30720U       // (SERVO_HIGH - SERVO_LOW) * (COUNT / 100)
+#define C2  48579960U    // SERVO_LOW(CRSF_MAX - CRSF_MIN) * (COUNT / 100)
+#define C3  16390U       // (CRSF_MAX - CRSF_MIN) * 10
+
+#define C4  32768U       // Same as C1 for CH9, CH10
+#define C5  51818624U    // Same as C2 for CH9, CH10
+
 void enableOutputs(void) {
     TCC0_CompareStart();
     TCC1_CompareStart();
@@ -60,17 +67,10 @@ void setPWMfrequency(int freq) {
 }
 
 void setOutput(int out, uint32_t value) {
-    //TODO can these calculations be improved
     if (out < 8) {
-        value = (value - CRSF_MIN) * (SERVO_HIGH - SERVO_LOW);
-        value += SERVO_LOW * (CRSF_MAX - CRSF_MIN);
-        value *= SERVO_COUNT_PER_MS / 100;
-        value /= 10 * (CRSF_MAX - CRSF_MIN);
+        value = (((value - CRSF_MIN) * C1) + C2) / C3;
     } else {
-        value = (value - CRSF_MIN) * (SERVO_HIGH - SERVO_LOW);
-        value += SERVO_LOW * (CRSF_MAX - CRSF_MIN);
-        value *= SERVO_COUNT_PER_MS_CH9_CH10 / 100;
-        value /= 10 * (CRSF_MAX - CRSF_MIN);
+        value = (((value - CRSF_MIN) * C4) + C5) / C3;
     }
     if (out < 2) {
         TCC1_Compare24bitMatchSet(out, value);
