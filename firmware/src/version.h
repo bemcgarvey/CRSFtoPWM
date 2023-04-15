@@ -15,8 +15,8 @@
 extern "C" {
 #endif
 
-#define MAJOR_VERSION   0
-#define MINOR_VERSION   9
+#define MAJOR_VERSION   1
+#define MINOR_VERSION   0
     
     extern uint16_t version;
 

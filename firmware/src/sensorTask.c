@@ -37,8 +37,8 @@ void sensorTask(void *pvParameter) {
         debugMsg("Altimeter failed");
     }
     while (1) {
-        vTaskDelay(delay);
         if (altimeterHealthy) {
+            vTaskDelay(delay - PRESSURE_SAMPLE_MS);
             float alt = getAltitude();
             if (initSamples > 0) {
                 --initSamples;
@@ -59,6 +59,8 @@ void sensorTask(void *pvParameter) {
                 }
             }
             sendAltitudeTelem(alt, dAlt);
+        } else {
+            vTaskDelay(delay);
         }
         vTaskDelay(delay);
         float v = getVBat();

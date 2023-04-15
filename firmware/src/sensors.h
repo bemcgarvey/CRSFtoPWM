@@ -14,7 +14,8 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+    
+#define PRESSURE_SAMPLE_MS      40
     void initSensors(void);
     float getAltitude(void);
     float getVBat(void);
