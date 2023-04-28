@@ -1179,6 +1179,9 @@
          </item>
          <item alignment="Qt::AlignLeft">
           <widget class="QComboBox" name="uartComboBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <item>
             <property name="text">
              <string>Debug</string>

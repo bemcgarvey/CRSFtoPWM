@@ -86,16 +86,16 @@ int32_t getPressure(void) {
     D2 |= buff[2];
     int64_t dT;
     dT = D2 - ((uint32_t) C[5] << 8);
-    int32_t temp;
-    temp = (dT * C[6]) >> 23;
-    temp += 2000;
-    uint64_t off2 = 0;
-    int64_t sens2 = 0;
-    if (temp < 2000) {
-        temp -= 2000;
-        off2 = (61 * (temp * temp)) >> 4;
-        sens2 = (29 * (temp * temp)) >> 4;
-    }
+    //int32_t temp;
+    //temp = (dT * C[6]) >> 23;
+    //temp += 2000;
+    //uint64_t off2 = 0;
+    //int64_t sens2 = 0;
+    //if (temp < 2000) {
+    //    temp -= 2000;
+    //    off2 = (61 * (temp * temp)) >> 4;
+    //    sens2 = (29 * (temp * temp)) >> 4;
+    //}
     cmd = CMD_D1_8192;
     SERCOM3_I2C_Write(MS5637_ADDRESS, &cmd, 1);
     while (SERCOM3_I2C_IsBusy());
@@ -113,10 +113,10 @@ int32_t getPressure(void) {
     D1 |= buff[2];
     int64_t off;
     off = ((uint64_t) C[2] << 17) + ((C[4] * dT) >> 6);
-    off -= off2;
+    //off -= off2;
     int64_t sens;
     sens = ((uint64_t) C[1] << 16) + ((C[3] * dT) >> 7);
-    sens -= sens2;
+    //sens -= sens2;
     int32_t p;
     p = (((D1 * sens) >> 21) - off) >> 15;
     return p;
