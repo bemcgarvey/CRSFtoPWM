@@ -854,6 +854,8 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: SERCOM1_Handler}
+      - type: User
+        attributes: {value: SERCOM1_Passthrough_InterruptHandler}
   - type: Boolean
     attributes: {id: NVIC_10_0_HANDLER_LOCK}
     children:
@@ -861,6 +863,13 @@ children:
       children:
       - type: Dynamic
         attributes: {id: core, value: 'false'}
+  - type: Combo
+    attributes: {id: NVIC_10_0_PRIORITY}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '0'}
   - type: Boolean
     attributes: {id: NVIC_11_0_ENABLE}
     children:

@@ -1180,7 +1180,7 @@
          <item alignment="Qt::AlignLeft">
           <widget class="QComboBox" name="uartComboBox">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <item>
             <property name="text">
@@ -1194,7 +1194,7 @@
            </item>
            <item>
             <property name="text">
-             <string>FIrmware Update</string>
+             <string>Passthrough</string>
             </property>
            </item>
           </widget>

@@ -21,6 +21,7 @@ extern TaskHandle_t sensorTaskHandle;
 extern TaskHandle_t rxTaskHandle;
 extern TaskHandle_t sbusTaskHandle;
 extern TaskHandle_t watchdogTaskHandle;
+extern TaskHandle_t passthroughTaskHandle;
 
 extern QueueHandle_t debugQueue;
 extern QueueHandle_t packetQueue;

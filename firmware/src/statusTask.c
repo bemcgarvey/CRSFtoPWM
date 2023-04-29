@@ -12,6 +12,7 @@
 #include "debug.h"
 #include "statusTask.h"
 #include "rtosHandles.h"
+#include "settings.h"
 #include <stdio.h>
 
 TaskHandle_t statusTaskHandle;
@@ -21,9 +22,11 @@ void statusTask(void *pvParameters) {
     printf("Starting status task\r\n");
     while (1) {
         if (xQueueReceive(debugQueue, msg, portMAX_DELAY) == pdTRUE) {
-            msg[DEBUG_MAX_MSG_LEN - 1] = '\0';
-            printf(msg);
-            printf("\r\n");
+            if (settings.uartMode == UART_DEBUG) {
+                msg[DEBUG_MAX_MSG_LEN - 1] = '\0';
+                printf(msg);
+                printf("\r\n");
+            }
             LED_Toggle();
         }
     }
