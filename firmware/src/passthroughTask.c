@@ -19,7 +19,6 @@ void passthroughTask(void *pvParameters) {
     char rxByte;
     int pos = 0;
     char newline = '\n';
-    //passthroughQueue = xQueueCreate(MAX_CRSF_PACKET, 1);
     NVIC_SetPriority(SERCOM1_IRQn, 1);
     while (1) {
         while (!SERCOM1_USART_Read(&rxByte, 1));
@@ -42,17 +41,6 @@ void passthroughTask(void *pvParameters) {
                 pos = 0;
             }
         }
-    }
-}
-
-void passthroughRxTask(void *pvParameters) {
-    uint8_t temp;
-    while (1) {
-        xQueueReceive(passthroughQueue, &temp, portMAX_DELAY);
-        LED_Set();
-        //TODO will this block?
-        while((SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U);
-        SERCOM1_REGS->USART_INT.SERCOM_DATA = temp;
     }
 }
 
@@ -79,12 +67,11 @@ void handleSerialCommand(void) {
         switchSERCOM1Baud();
         SERCOM1_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);
         NVIC_EnableIRQ(SERCOM1_IRQn);
-        const uint8_t rebootCommand[] = {0xec, 0x04, 0x32, 0x62, 0x6c, 0x0a};
-        for (int i = 0; i < 6; ++i) {
-            while((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U);
-            SERCOM0_REGS->USART_INT.SERCOM_DATA = rebootCommand[i];
-        }
-        //vTaskResume(passthroughRxTaskHandle);
+        //const uint8_t rebootCommand[] = {0xec, 0x04, 0x32, 0x62, 0x6c, 0x0a};
+        //for (int i = 0; i < 6; ++i) {
+        //    while((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U);
+        //    SERCOM0_REGS->USART_INT.SERCOM_DATA = rebootCommand[i];
+        //}
         while (passthroughEnabled) {
             vTaskDelay(1000);  //TODO figure out how to exit passthrough mode
         }

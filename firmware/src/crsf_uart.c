@@ -62,10 +62,6 @@ void rxISR(void) {
     uint8_t temp;
     temp = SERCOM0_REGS->USART_INT.SERCOM_DATA;
     if (passthroughEnabled) {
-        //BaseType_t xHigherPriorityTaskWoken;
-        //xHigherPriorityTaskWoken = pdFALSE;
-        //xQueueSendToBackFromISR(passthroughQueue, &temp, &xHigherPriorityTaskWoken);
-        //portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
         while((SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U);
         SERCOM1_REGS->USART_INT.SERCOM_DATA = temp;
         return;
