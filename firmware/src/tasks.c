@@ -38,6 +38,8 @@ void initTasks(void) {
     }
     if (settings.uartMode == UART_PASSTHROUGH) {
         xTaskCreate(passthroughTask, "passthroughTask", 128, NULL, 1, &passthroughTaskHandle);
+        //xTaskCreate(passthroughRxTask, "ptRxTask", 128, NULL, 4, &passthroughRxTaskHandle);
+        //vTaskSuspend(passthroughRxTaskHandle);
     }
     debugQueue = xQueueCreate(5, DEBUG_MAX_MSG_LEN);
     packetQueue = xQueueCreate(1, CHANNEL_PACKET_LEN);

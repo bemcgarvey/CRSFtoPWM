@@ -19,7 +19,9 @@ TaskHandle_t statusTaskHandle;
 
 void statusTask(void *pvParameters) {
     char msg[DEBUG_MAX_MSG_LEN];
-    printf("Starting status task\r\n");
+    if (settings.uartMode == UART_DEBUG) {
+        printf("Starting status task\r\n");
+    }
     while (1) {
         if (xQueueReceive(debugQueue, msg, portMAX_DELAY) == pdTRUE) {
             if (settings.uartMode == UART_DEBUG) {

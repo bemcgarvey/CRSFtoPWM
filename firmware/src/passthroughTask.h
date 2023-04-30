@@ -12,8 +12,9 @@
 extern "C" {
 #endif
 
-    extern bool passthroughEnabled;
+    extern volatile bool passthroughEnabled;
     void passthroughTask(void *pvParameters);
+    void passthroughRxTask(void *pvParameters);
 
 
 #ifdef	__cplusplus

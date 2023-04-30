@@ -28,14 +28,22 @@ int main(void) {
     }
     SYS_Initialize(NULL);
     if (wdtResetHappened) {
-        printf("Watchdog timeout!!\r\n");
+        if (settings.uartMode == UART_DEBUG) {
+            printf("Watchdog timeout!!\r\n");
+        }
     }
-    printf("Starting\r\n");
+    if (settings.uartMode == UART_DEBUG) {
+        printf("Starting\r\n");
+    }
     loadSettings();
-    printf("Settings loaded\r\n");
-    printf("Servo rate %d Hz, Sensor rate %d Hz\r\n", settings.servoRate, settings.sensorRate);
+    if (settings.uartMode == UART_DEBUG) {
+        printf("Settings loaded\r\n");
+        printf("Servo rate %d Hz, Sensor rate %d Hz\r\n", settings.servoRate, settings.sensorRate);
+    }
     if (serialDetected) {
-        printf("Serial detected\r\n");
+        if (settings.uartMode == UART_DEBUG) {
+            printf("Serial detected\r\n");
+        }
         serialMain(); //Does not return;
     }
     initTasks(); //Starts scheduler, does not return

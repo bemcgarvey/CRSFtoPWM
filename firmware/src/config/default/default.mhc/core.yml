@@ -869,7 +869,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '0'}
+        attributes: {value: '1'}
   - type: Boolean
     attributes: {id: NVIC_11_0_ENABLE}
     children:
