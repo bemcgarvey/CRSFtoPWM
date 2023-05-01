@@ -14,10 +14,11 @@
 #include "rtosHandles.h"
 #include "passthroughTask.h"
 
+volatile uint32_t lastByteTick = 0;
+
 volatile static uint8_t buffer[64];
 volatile static int pos = 0;
 volatile static int remaining;
-volatile static uint32_t lastByteTick = 0;
 volatile static bool synched = false;
 
 void T3Callback(TC_TIMER_STATUS status, uintptr_t context);

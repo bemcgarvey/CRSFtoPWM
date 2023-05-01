@@ -15,6 +15,8 @@
 extern "C" {
 #endif
 
+extern volatile uint32_t lastByteTick;
+
 void initUart(void);
 void writeUart(uint8_t *buffer, int len);
 
