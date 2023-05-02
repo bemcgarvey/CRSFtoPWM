@@ -1,10 +1,3 @@
-/* 
- * File:   commands.h
- * Author: bemcg
- *
- * Created on April 9, 2023, 2:41 PM
- */
-
 #ifndef COMMANDS_H
 #define	COMMANDS_H
 

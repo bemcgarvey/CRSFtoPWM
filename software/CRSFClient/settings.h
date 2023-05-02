@@ -1,10 +1,3 @@
-/* 
- * File:   settings.h
- * Author: bemcg
- *
- * Created on April 4, 2023, 2:17 PM
- */
-
 #ifndef SETTINGS_H
 #define	SETTINGS_H
 
@@ -17,7 +10,7 @@ extern "C" {
 #define NUM_OUTPUTS 10
     
     enum {FAILSAFE_THROTTLE_OFF = 0, FAILSAFE_HOLD_ALL = 1};
-    enum {UART_DEBUG = 0, UART_GPS = 1, UART_BOOTLOADER = 2};
+    enum {UART_DEBUG = 0, UART_GPS = 1, UART_PASSTHROUGH = 2};
     enum {I2C_NONE = 0, I2C_COMPASS = 1, I2C_AIRSPEED = 2, I2C_OTHER = 4};
     
     typedef struct {
