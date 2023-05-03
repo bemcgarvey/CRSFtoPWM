@@ -4,9 +4,11 @@
 #include "rtosHandles.h"
 #include "crsf.h"
 #include "crsf_uart.h"
+#include "settings.h"
 
 TaskHandle_t passthroughTaskHandle;
-QueueHandle_t passthroughQueue;
+QueueHandle_t passthroughQueueS0toS1;
+QueueHandle_t passthroughQueueS1toS0;
 volatile bool passthroughEnabled = false;
 
 static bool CLIecho = false;
@@ -20,6 +22,8 @@ void passthroughTask(void *pvParameters) {
     int pos = 0;
     char newline = '\n';
     NVIC_SetPriority(SERCOM1_IRQn, 1);
+    passthroughQueueS0toS1 = xQueueCreate(64, 1);
+    passthroughQueueS1toS0 = xQueueCreate(64, 1);
     while (1) {
         while (!SERCOM1_USART_Read(&rxByte, 1));
         if (CLIecho && rxByte != '\n') {
@@ -62,15 +66,23 @@ void handleSerialCommand(void) {
         LED_Set();
         passthroughEnabled = true;
         WDT_Disable();
-        vTaskSuspend(watchdogTaskHandle);
-        vTaskSuspend(rxTaskHandle);
-        while (DMAC_ChannelIsBusy(DMAC_CHANNEL_0));
         switchSERCOM1Baud(true);
         SERCOM1_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);
         NVIC_EnableIRQ(SERCOM1_IRQn);
+        vTaskSuspend(watchdogTaskHandle);
+        vTaskSuspend(rxTaskHandle);
+        if (settings.sBusEnabled) {
+            vTaskSuspend(sbusTaskHandle);
+        }
         lastByteTick = 0;
         while (passthroughEnabled) {
-            vTaskDelay(1000);
+            uint8_t temp;
+            if (xQueueReceive(passthroughQueueS0toS1, &temp, 0) == pdTRUE && (SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk)) {    
+                SERCOM1_REGS->USART_INT.SERCOM_DATA = temp;
+            }
+            if (xQueueReceive(passthroughQueueS1toS0, &temp, 0) == pdTRUE && (SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk)) {    
+                SERCOM0_REGS->USART_INT.SERCOM_DATA = temp;
+            }
             if (lastByteTick >= 6000) {
                 passthroughEnabled = false;
             }
@@ -80,6 +92,9 @@ void handleSerialCommand(void) {
         switchSERCOM1Baud(false);
         vTaskResume(watchdogTaskHandle);
         vTaskResume(rxTaskHandle);
+        if (settings.sBusEnabled) {
+            vTaskResume(sbusTaskHandle);
+        }
         vTaskResume(sensorTaskHandle);
         WDT_Enable();
         LED_Clear();
@@ -96,25 +111,12 @@ void SERCOM1_Passthrough_InterruptHandler(void) {
     uint8_t temp;
     testCondition = SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk;
     if (testCondition) {
-        USART_ERROR errorStatus = USART_ERROR_NONE;
-        errorStatus = (USART_ERROR) (SERCOM1_REGS->USART_INT.SERCOM_STATUS & (uint16_t) (SERCOM_USART_INT_STATUS_PERR_Msk | SERCOM_USART_INT_STATUS_FERR_Msk | SERCOM_USART_INT_STATUS_BUFOVF_Msk));
-        if (errorStatus != USART_ERROR_NONE) {
-            /* Clear error flag */
-            SERCOM1_REGS->USART_INT.SERCOM_INTFLAG = (uint8_t) SERCOM_USART_INT_INTFLAG_ERROR_Msk;
-            /* Clear all errors */
-            SERCOM1_REGS->USART_INT.SERCOM_STATUS = (uint16_t) (SERCOM_USART_INT_STATUS_PERR_Msk | SERCOM_USART_INT_STATUS_FERR_Msk | SERCOM_USART_INT_STATUS_BUFOVF_Msk);
-            /* Flush existing error bytes from the RX FIFO */
-            while ((SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t) SERCOM_USART_INT_INTFLAG_RXC_Msk) == (uint8_t) SERCOM_USART_INT_INTFLAG_RXC_Msk) {
-                temp = (uint8_t) SERCOM1_REGS->USART_INT.SERCOM_DATA;
-            }
-            (void) temp;
-        }
+        SERCOM1_USART_ErrorGet();
     }
     testCondition = SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk;
     if (testCondition) {
         temp = SERCOM1_REGS->USART_INT.SERCOM_DATA;
-        while ((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t) SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U);
-        SERCOM0_REGS->USART_INT.SERCOM_DATA = temp;
+        xQueueSendToBackFromISR(passthroughQueueS1toS0, &temp, NULL);
         lastByteTick = 0;
     }
 }

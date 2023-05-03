@@ -37,34 +37,12 @@ void writeUart(uint8_t *buffer, int len) {
     }
 }
 
-void errorISR(void) {
-    //Handle error
-    uint8_t temp;
-    USART_ERROR errorStatus = USART_ERROR_NONE;
-    errorStatus = (USART_ERROR) (SERCOM0_REGS->USART_INT.SERCOM_STATUS & (uint16_t) (SERCOM_USART_INT_STATUS_PERR_Msk | SERCOM_USART_INT_STATUS_FERR_Msk | SERCOM_USART_INT_STATUS_BUFOVF_Msk));
-    if (errorStatus != USART_ERROR_NONE) {
-        lastByteTick = 0;
-        /* Clear error flag */
-        SERCOM0_REGS->USART_INT.SERCOM_INTFLAG = (uint8_t) SERCOM_USART_INT_INTFLAG_ERROR_Msk;
-        /* Clear all errors */
-        SERCOM0_REGS->USART_INT.SERCOM_STATUS = (uint16_t) (SERCOM_USART_INT_STATUS_PERR_Msk | SERCOM_USART_INT_STATUS_FERR_Msk | SERCOM_USART_INT_STATUS_BUFOVF_Msk);
-        /* Flush existing error bytes from the RX FIFO */
-        while ((SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t) SERCOM_USART_INT_INTFLAG_RXC_Msk) == (uint8_t) SERCOM_USART_INT_INTFLAG_RXC_Msk) {
-            temp = (uint8_t) SERCOM0_REGS->USART_INT.SERCOM_DATA;
-        }
-        (void) temp;
-        synched = false;
-        pos = 0;
-    }
-}
-
 void rxISR(void) {
     //Handle rx
     uint8_t temp;
     temp = SERCOM0_REGS->USART_INT.SERCOM_DATA;
     if (passthroughEnabled) {
-        while((SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & (uint8_t)SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U);
-        SERCOM1_REGS->USART_INT.SERCOM_DATA = temp;
+        xQueueSendToBackFromISR(passthroughQueueS0toS1, &temp, NULL);
         return;
     }
     if (!synched) {
@@ -100,7 +78,10 @@ void SERCOM0_CRSF_USART_InterruptHandler(void) {
     uint8_t testCondition;
     testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk;
     if (testCondition) {
-        errorISR();
+        lastByteTick = 0;
+        SERCOM0_USART_ErrorGet();
+        synched = false;
+        pos = 0;
     }
     testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk;
     if (testCondition) {

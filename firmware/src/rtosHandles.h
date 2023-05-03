@@ -25,6 +25,8 @@ extern TaskHandle_t passthroughTaskHandle;
 
 extern QueueHandle_t debugQueue;
 extern QueueHandle_t packetQueue;
+extern QueueHandle_t passthroughQueueS0toS1;
+extern QueueHandle_t passthroughQueueS1toS0;
 
 #ifdef	__cplusplus
 }

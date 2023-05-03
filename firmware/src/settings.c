@@ -16,7 +16,7 @@ Settings settings __attribute__((aligned(4)));
 __attribute__((aligned(NVMCTRL_FLASH_ROWSIZE), space(prog))) const union {
     Settings settings;
     uint8_t bytes[NVMCTRL_FLASH_ROWSIZE]; 
-} romSettings = {{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 50, 0, 0, 2, 0, 0, 0, 0.0}};
+} romSettings = {{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, 50, 0, 0, 2, 0, 2, 0, 0.0}};
 
 bool altimeterHealthy = false;
 bool failsafeEnabled = true;
