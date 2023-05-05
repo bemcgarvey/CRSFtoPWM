@@ -37,7 +37,7 @@ void initTasks(void) {
         xTaskCreate(sbusTask, "sbusTask", 512, NULL, 3, &sbusTaskHandle);
     }
     if (!wdtResetHappened && settings.uartMode == UART_PASSTHROUGH) {
-        xTaskCreate(passthroughTask, "passthroughTask", 256, NULL, 1, &passthroughTaskHandle);
+        xTaskCreate(passthroughTask, "passthroughTask", 512, NULL, 1, &passthroughTaskHandle);
     }
     debugQueue = xQueueCreate(5, DEBUG_MAX_MSG_LEN);
     packetQueue = xQueueCreate(1, CHANNEL_PACKET_LEN);

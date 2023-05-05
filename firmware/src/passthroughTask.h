@@ -1,9 +1,4 @@
-/* 
- * File:   passthroughTask.h
- * Author: bemcg
- *
- * Created on April 28, 2023, 2:00 PM
- */
+//TODO header
 
 #ifndef PASSTHROUGHTASK_H
 #define	PASSTHROUGHTASK_H
@@ -14,7 +9,7 @@ extern "C" {
 
     extern volatile bool passthroughEnabled;
     void passthroughTask(void *pvParameters);
-    void passthroughRxTask(void *pvParameters);
+    void passthroughISR(void);
 
 
 #ifdef	__cplusplus
