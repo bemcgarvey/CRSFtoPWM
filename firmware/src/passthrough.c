@@ -1,7 +1,15 @@
-//TODO header
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: passthrough.c                             //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: BetaFlight passthrough functions   //
+/////////////////////////////////////////////////////
 
 #include "definitions.h"
-#include "passthroughTask.h"
+#include "passthrough.h"
 #include "stdio.h"
 #include "rtosHandles.h"
 #include "crsf.h"

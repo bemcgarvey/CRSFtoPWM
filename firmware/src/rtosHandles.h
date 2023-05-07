@@ -22,11 +22,14 @@ extern TaskHandle_t rxTaskHandle;
 extern TaskHandle_t sbusTaskHandle;
 extern TaskHandle_t watchdogTaskHandle;
 extern TaskHandle_t passthroughTaskHandle;
+extern TaskHandle_t gpsTaskHandle;
 
 extern QueueHandle_t debugQueue;
 extern QueueHandle_t packetQueue;
 extern QueueHandle_t passthroughQueueS0toS1;
 extern QueueHandle_t passthroughQueueS1toS0;
+extern QueueHandle_t sentenceQueueHandle;
+extern QueueHandle_t gpsPacketQueueHandle;
 
 #ifdef	__cplusplus
 }

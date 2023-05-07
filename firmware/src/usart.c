@@ -1,8 +1,18 @@
-//TODO header
+/////////////////////////////////////////////////////
+// Project: CRSFtoPWM                              //
+// File: usart.c                                   //
+// Target: ATSAMD21E18A                            // 
+// Compiler: XC32                                  //
+// Author: Brad McGarvey                           //
+// License: GNU General Public License v3.0        //
+// Description: SERCOM1 usart ISR                  //
+/////////////////////////////////////////////////////
+
 #include "definitions.h"
 #include "usart.h"
 #include "settings.h"
-#include "passthroughTask.h"
+#include "passthrough.h"
+#include "gps.h"
 
 #define BAUD_VALUE_420000           (56360UL)
 #define BAUD_VALUE_115200           (63019UL)
@@ -40,7 +50,7 @@ void SERCOM1_USART_InterruptHandler(void) {
         if (settings.uartMode == UART_PASSTHROUGH) {
             passthroughISR();
         } else if (settings.uartMode == UART_GPS) {
-            //gpsISR();
+            gpsISR();
         }
     }
 }

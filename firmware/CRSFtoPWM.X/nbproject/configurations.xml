@@ -211,8 +211,9 @@
       <itemPath>../src/commands.h</itemPath>
       <itemPath>../src/version.h</itemPath>
       <itemPath>../src/watchdogTask.h</itemPath>
-      <itemPath>../src/passthroughTask.h</itemPath>
       <itemPath>../src/usart.h</itemPath>
+      <itemPath>../src/gps.h</itemPath>
+      <itemPath>../src/passthrough.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -328,8 +329,9 @@
       <itemPath>../src/sbusTask.c</itemPath>
       <itemPath>../src/version.c</itemPath>
       <itemPath>../src/watchdogTask.c</itemPath>
-      <itemPath>../src/passthroughTask.c</itemPath>
       <itemPath>../src/usart.c</itemPath>
+      <itemPath>../src/gps.c</itemPath>
+      <itemPath>../src/passthrough.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

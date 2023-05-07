@@ -26,10 +26,15 @@ void sensorTask(void *pvParameter) {
     float lastAltitude = 0;
     int initSamples = INITIAL_ALT_SAMPLES;
     int samplePeriod;
+    CRSF_sensor_gps gps;
     
-    vTaskDelay(100);
+    vTaskDelay(500);
     initSensors();
-    delay = 500 / settings.sensorRate;
+    if (settings.uartMode == UART_GPS) {
+        delay = 333 / settings.sensorRate;
+    } else {
+        delay = 500 / settings.sensorRate;
+    }
     debugMsg("Sensors initialized");
     if (altimeterHealthy) {
         debugMsg("Altimeter good");
@@ -65,6 +70,12 @@ void sensorTask(void *pvParameter) {
         vTaskDelay(delay);
         float v = getVBat();
         sendBatteryTelem(v);
+        if (settings.uartMode == UART_GPS) {
+            vTaskDelay(delay);
+            if (xQueueReceive(gpsPacketQueueHandle, &gps, 0) == pdTRUE) {
+                sendGPSTelem(&gps);
+            }
+        }
         xTaskNotify(watchdogTaskHandle, SENSOR_TASK_NOTIFY, eSetBits);
     }
 }

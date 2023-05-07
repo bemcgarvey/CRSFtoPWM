@@ -12,7 +12,7 @@
 #include "crsf_uart.h"
 #include "crsf.h"
 #include "rtosHandles.h"
-#include "passthroughTask.h"
+#include "passthrough.h"
 
 volatile uint32_t lastByteTick = 0;
 

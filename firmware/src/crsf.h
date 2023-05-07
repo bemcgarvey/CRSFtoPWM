@@ -114,10 +114,10 @@ extern "C" {
     CRSF_sensor_baro_vario;
 
     typedef struct __attribute__((packed)) {
-        int32_t latitude; // degree / 10,000,000 big endian
-        int32_t longitude; // degree / 10,000,000 big endian
-        uint16_t groundspeed; // km/h / 10 big endian
-        uint16_t heading; // GPS heading, degree/100 big endian
+        int32_t latitude; // degree * 10,000,000 big endian
+        int32_t longitude; // degree * 10,000,000 big endian
+        uint16_t groundspeed; // km/h * 10 big endian
+        uint16_t heading; // GPS heading, degree * 100 big endian
         uint16_t altitude; // meters, +1000m big endian
         uint8_t satellites; // satellites
     }
@@ -126,6 +126,7 @@ extern "C" {
     void initCRSF(void);
     void sendBatteryTelem(float voltage);
     void sendAltitudeTelem(float altitude, float vSpeed);
+    void sendGPSTelem(CRSF_sensor_gps *gps);
 
 #ifdef	__cplusplus
 }

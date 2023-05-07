@@ -1,26 +1,27 @@
 /////////////////////////////////////////////////////
 // Project: CRSFtoPWM                              //
-// File: usart.h                                   //
+// File: gps.h                                     //
 // Target: ATSAMD21E18A                            // 
 // Compiler: XC32                                  //
 // Author: Brad McGarvey                           //
 // License: GNU General Public License v3.0        //
-// Description: SERCOM1 usart ISR                  //
+// Description: GPS functions                      //
 /////////////////////////////////////////////////////
 
-#ifndef USART_H
-#define	USART_H
+#ifndef GPS_H
+#define	GPS_H
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-typedef enum {BAUD_9600, BAUD_115200, BAUD_420000} SERCOM1_Baud; 
-void switchSERCOM1Baud(SERCOM1_Baud baud);
+    extern bool gpsHealthy;
+    void gpsTask(void *pvParameters);
+    void gpsISR(void);
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif	/* USART_H */
+#endif	/* GPS_H */
 

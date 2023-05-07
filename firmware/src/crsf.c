@@ -79,3 +79,17 @@ void sendAltitudeTelem(float altitude, float vSpeed) {
     crsfTxBuffer[ALT_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], ALT_PAYLOAD_LEN - 1);
     writeUart(crsfTxBuffer, ALT_PACKET_LEN);
 }
+
+enum {
+    GPS_PACKET_LEN = 19, GPS_CRC_OFFSET = 18, GPS_PAYLOAD_LEN = 17
+};
+
+void sendGPSTelem(CRSF_sensor_gps *gps) {
+    CRSF_Frame *frame = (CRSF_Frame *) crsfTxBuffer;
+    frame->address = CRSF_ADDRESS_FLIGHT_CONTROLLER;
+    frame->length = GPS_PAYLOAD_LEN;
+    frame->type = CRSF_FRAMETYPE_GPS;
+    memcpy(frame->data, gps, sizeof(CRSF_sensor_gps));
+    crsfTxBuffer[GPS_CRC_OFFSET] = calcCRC(&crsfTxBuffer[2], GPS_PAYLOAD_LEN - 1);
+    writeUart(crsfTxBuffer, GPS_PACKET_LEN);
+}

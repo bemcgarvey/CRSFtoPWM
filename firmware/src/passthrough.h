@@ -1,26 +1,28 @@
 /////////////////////////////////////////////////////
 // Project: CRSFtoPWM                              //
-// File: usart.h                                   //
+// File: passthrough.h                             //
 // Target: ATSAMD21E18A                            // 
 // Compiler: XC32                                  //
 // Author: Brad McGarvey                           //
 // License: GNU General Public License v3.0        //
-// Description: SERCOM1 usart ISR                  //
+// Description: BetaFlight passthrough functions   //
 /////////////////////////////////////////////////////
 
-#ifndef USART_H
-#define	USART_H
+#ifndef PASSTHROUGH_H
+#define	PASSTHROUGH_H
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-typedef enum {BAUD_9600, BAUD_115200, BAUD_420000} SERCOM1_Baud; 
-void switchSERCOM1Baud(SERCOM1_Baud baud);
+    extern volatile bool passthroughEnabled;
+    void passthroughTask(void *pvParameters);
+    void passthroughISR(void);
+
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif	/* USART_H */
+#endif	/* PASSTHROUGH_H */
 
