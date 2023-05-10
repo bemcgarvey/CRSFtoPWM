@@ -10,8 +10,7 @@ Includes a pressure sensor for baro altitude and vertical speed telemetery.
 * Altitude and VSpeed telemetry over ELRS/CRSF
 * Rx battery telemetry over ELRS
 * Vbat from 2S to 6S or optionally from servo rail
-* Extra UART port that can be configured for debugging or Betaflight passthrough for ELRS rx firmware updates
-* Extra UART could be used for GPS telemetry (not yet implemented)
+* Extra UART port can be configured for gps telemetry, debugging, or Betaflight passthrough for ELRS rx firmware updates
 * Extra I2C port for future expansion?
 * Windows client software for configuration over a USB-Serial (FTDI etc.) connection.
 
