@@ -42,6 +42,7 @@ void MainWindow::updateControls()
     ui->uartComboBox->setCurrentIndex(settings.uartMode);
     ui->sBusCheckBox->setChecked(settings.sBusEnabled);
     ui->voltageSpinBox->setValue(vBat);
+    ui->gpsBaudComboBox->setCurrentIndex(settings.gpsBaud);
 }
 
 void MainWindow::updateSettings()
@@ -68,6 +69,7 @@ void MainWindow::updateSettings()
     settings.uartMode = ui->uartComboBox->currentIndex();
     settings.sBusEnabled = ui->sBusCheckBox->isChecked() ? 1 : 0;
     settings.batCalibration = settings.batCalibration + (ui->voltageSpinBox->value() - vBat);
+    settings.gpsBaud = ui->gpsBaudComboBox->currentIndex();
 }
 
 void MainWindow::updatePortMenu() {
@@ -203,5 +205,15 @@ void MainWindow::on_actionAbout_triggered()
 {
     auto dlg = std::make_unique<AboutDialog>(this);
     dlg->exec();
+}
+
+
+void MainWindow::on_uartComboBox_currentIndexChanged(int index)
+{
+    if (index == 1) {
+        ui->gpsBaudComboBox->setEnabled(true);
+    } else {
+        ui->gpsBaudComboBox->setEnabled(false);
+    }
 }
 

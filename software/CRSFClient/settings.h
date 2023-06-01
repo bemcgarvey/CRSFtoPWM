@@ -21,6 +21,7 @@ extern "C" {
         uint8_t sensorRate;
         uint8_t failsafeMode;
         uint8_t uartMode;
+        uint8_t gpsBaud;
         uint8_t i2cSensors;
         float batCalibration;
     } Settings;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
-    <height>435</height>
+    <width>370</width>
+    <height>466</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1199,6 +1199,45 @@
            </item>
           </widget>
          </item>
+         <item>
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>GPS Baud Rate</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="gpsBaudComboBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <item>
+            <property name="text">
+             <string>9600</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>19200</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>38400</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>57600</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>115200</string>
+            </property>
+           </item>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -1313,7 +1352,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>368</width>
+     <width>370</width>
      <height>22</height>
     </rect>
    </property>

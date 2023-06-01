@@ -40,5 +40,6 @@ private slots:
     void on_saveSettingsButton_clicked();
     void on_actionExit_triggered();
     void on_actionAbout_triggered();
+    void on_uartComboBox_currentIndexChanged(int index);
 };
 #endif // MAINWINDOW_H

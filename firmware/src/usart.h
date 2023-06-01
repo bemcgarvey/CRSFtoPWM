@@ -15,7 +15,7 @@
 extern "C" {
 #endif
 
-typedef enum {BAUD_9600, BAUD_115200, BAUD_420000} SERCOM1_Baud; 
+typedef enum {BAUD_9600 = 0, BAUD_19200 = 1, BAUD_38400 = 2, BAUD_57600 = 3, BAUD_115200 = 4, BAUD_420000 = 5} SERCOM1_Baud; 
 void switchSERCOM1Baud(SERCOM1_Baud baud);
 
 #ifdef	__cplusplus

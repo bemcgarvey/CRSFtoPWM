@@ -15,6 +15,7 @@
 #include "math.h"
 #include "crsf.h"
 #include "usart.h"
+#include "settings.h"
 
 
 TaskHandle_t gpsTaskHandle;
@@ -65,7 +66,7 @@ void gpsISR(void) {
 
 void gpsTask(void *pvParameters) {
     char *nmeaSentence;
-    switchSERCOM1Baud(BAUD_9600);
+    switchSERCOM1Baud(settings.gpsBaud);
     gpsHealthy = false;
     NVIC_SetPriority(SERCOM1_IRQn, 1);
     SERCOM1_REGS->USART_INT.SERCOM_INTENSET = (uint8_t) (SERCOM_USART_INT_INTENSET_ERROR_Msk | SERCOM_USART_INT_INTENSET_RXC_Msk);

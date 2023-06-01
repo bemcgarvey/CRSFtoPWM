@@ -17,6 +17,9 @@
 #define BAUD_VALUE_420000           (56360UL)
 #define BAUD_VALUE_115200           (63019UL)
 #define BAUD_VALUE_9600             (65326UL)
+#define BAUD_VALUE_19200            (65117UL)
+#define BAUD_VALUE_38400            (64697UL)
+#define BAUD_VALUE_57600            (64278UL)
 
 void switchSERCOM1Baud(SERCOM1_Baud baud) {
     //disable
@@ -31,6 +34,15 @@ void switchSERCOM1Baud(SERCOM1_Baud baud) {
             break;
         case BAUD_9600:
             SERCOM1_REGS->USART_INT.SERCOM_BAUD = (uint16_t) SERCOM_USART_INT_BAUD_BAUD(BAUD_VALUE_9600);
+            break;
+        case BAUD_19200:
+            SERCOM1_REGS->USART_INT.SERCOM_BAUD = (uint16_t) SERCOM_USART_INT_BAUD_BAUD(BAUD_VALUE_19200);
+            break;
+        case BAUD_38400:
+            SERCOM1_REGS->USART_INT.SERCOM_BAUD = (uint16_t) SERCOM_USART_INT_BAUD_BAUD(BAUD_VALUE_38400);
+            break;
+        case BAUD_57600:
+            SERCOM1_REGS->USART_INT.SERCOM_BAUD = (uint16_t) SERCOM_USART_INT_BAUD_BAUD(BAUD_VALUE_57600);
             break;
     }
     while ((SERCOM1_REGS->USART_INT.SERCOM_SYNCBUSY) != 0U);
