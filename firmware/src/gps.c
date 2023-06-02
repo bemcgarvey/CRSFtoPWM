@@ -107,7 +107,8 @@ bool parseNMEASentence(char *nmea) {
     float f;
     uint16_t temp16;
     bool update = false;
-    if (strncmp(nmea, "$GPGGA", 6) == 0) {
+    nmea += 3; //Skip $GX prefix, where X can be N or P etc. 
+    if (strncmp(nmea, "GGA", 3) == 0) {
         tokenize(nmea);
         if (nmea[tokens[5]] == '0') {
             gpsHealthy = false;
@@ -129,7 +130,7 @@ bool parseNMEASentence(char *nmea) {
             gpsData.altitude = (gpsData.altitude >> 8) | (gpsData.altitude << 8);
             update = true;
         }
-    } else if (gpsHealthy && strncmp(nmea, "$GPVTG", 6) == 0) {
+    } else if (gpsHealthy && strncmp(nmea, "VTG", 3) == 0) {
         tokenize(nmea);
         f = atof(&nmea[tokens[0]]);
         temp16 = f * 100;
