@@ -6,6 +6,7 @@ Includes a pressure sensor for baro altitude and vertical speed telemetery.
 ### Features:  
 * 8 PWM servo outputs with adjustable update rate from 50Hz to 333Hz
 * 2 PWM outputs fixed at 50Hz
+* All pwm outputs can be mapped to any channel
 * Optional SBus output of all channels
 * Altitude and VSpeed telemetry over ELRS/CRSF
 * Rx battery telemetry over ELRS
@@ -14,4 +15,4 @@ Includes a pressure sensor for baro altitude and vertical speed telemetery.
 * Extra I2C port for future expansion?
 * Windows client software for configuration over a USB-Serial (FTDI etc.) connection.
 
- 
+![image](https://github.com/bemcgarvey/CRSFtoPWM/blob/main/software/CRSFClient/image.png) 
