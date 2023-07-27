@@ -74,14 +74,17 @@ void rxISR(void) {
     }
 }
 
+void SERCOM0_USART_ErrorClear( void );
+
 void SERCOM0_CRSF_USART_InterruptHandler(void) {
     uint8_t testCondition;
     testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk;
     if (testCondition) {
         lastByteTick = 0;
-        SERCOM0_USART_ErrorGet();
+        SERCOM0_USART_ErrorClear();
         synched = false;
         pos = 0;
+        return;
     }
     testCondition = SERCOM0_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk;
     if (testCondition) {

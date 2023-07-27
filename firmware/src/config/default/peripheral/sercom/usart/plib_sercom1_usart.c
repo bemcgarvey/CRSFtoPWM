@@ -68,7 +68,8 @@
 // *****************************************************************************
 // *****************************************************************************
 
-void static SERCOM1_USART_ErrorClear( void )
+//Removed static from ErrorClear so it can be used in custom ISR
+void SERCOM1_USART_ErrorClear( void )
 {
     uint8_t  u8dummyData = 0U;
     USART_ERROR errorStatus = (USART_ERROR) (SERCOM1_REGS->USART_INT.SERCOM_STATUS & (uint16_t)(SERCOM_USART_INT_STATUS_PERR_Msk | SERCOM_USART_INT_STATUS_FERR_Msk | SERCOM_USART_INT_STATUS_BUFOVF_Msk ));

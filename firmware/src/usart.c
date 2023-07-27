@@ -51,11 +51,14 @@ void switchSERCOM1Baud(SERCOM1_Baud baud) {
     while ((SERCOM1_REGS->USART_INT.SERCOM_SYNCBUSY) != 0U);
 }
 
+void SERCOM1_USART_ErrorClear( void );
+
 void SERCOM1_USART_InterruptHandler(void) {
     uint8_t testCondition;
     testCondition = SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_ERROR_Msk;
     if (testCondition) {
-        SERCOM1_USART_ErrorGet();
+        SERCOM1_USART_ErrorClear();
+        return;
     }
     testCondition = SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_RXC_Msk;
     if (testCondition) {
